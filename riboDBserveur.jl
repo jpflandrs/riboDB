@@ -2,11 +2,12 @@ module ReactiveForm
 using GenieFramework
 using Stipple
 using StippleDownloads
-using .Main.App.Analysis
 using DataFrames
 @genietools
 
 @app begin
+    @in CheckboxMultiple_checked = (true, @in(selection = []))
+    
     @in trigger = false
     @in clearit = false
     @in choixposttrim = false
@@ -469,14 +470,25 @@ function ui()  #btn("valider",color="red",@click("press_btn = true")), # @onbutt
     #     p("fasta est {{N}} de longueur is {{m}}") # random numbers is {{m}}
     # ])
     #[btn("Trigger action", @click(:trigger)),p("{{m}}")]
-    [cell([h1("Prokaryotes Phylogenetics Explorer [nuc] Workshop")])#toolbar("Configuration", class = "bg-primary text-white shadow-2")
-    cell([h6("LBBE UMR5558 Université Lyon1-CNRS & Master bioinfo@lyon Université Lyon1"),  a(href="https://github.com/jpflandrs/PkXplore","Code")])
+    [cell([h1("riboDB extractor")])#toolbar("Configuration", class = "bg-primary text-white shadow-2")
+    cell([h6("LBBE UMR5558 Université Lyon1-CNRS & Master bioinfo@lyon Université Lyon1"),  a(href="https://github.com/jpflandrs/riboDB","Code")])
     separator(color = "primary")
-    p(h5("Global Parameters"))
+    p(h5("General Parameters"))
     #cell([h5("Global Parameters")])
     row([
-        column(class="q-pa-sm",Stipple.select(:banqueselectionnée, options=:listebanques, emitvalue=true, clearable=true, useinput=true, counter = true, fillinput=true, filled = true, label="Bank Selection"), sm=6),
-        column(class="q-pa-sm",cell([p("Nb seqs"),slider(30:5:75, :requestedseq, var"marker-labels" = true, color = "grey")]), sm=6),
+        column(class="q-pa-sm",
+            [[h6("Seletion of Ribo-proteins")],
+            checkbox("Bacteria ribo-proteins", :selection, val = "bacteriaseules", color = "grey"),
+            checkbox("Archaea  ribo-proteins", :selection, val = "archaeaseules", color = "grey"),
+            checkbox("Universal set of RP", :selection, val = "universelles", color = "grey"),
+        ], sm=6),
+        column(class="q-pa-sm",
+            [[h6("Quality of the genomes")],
+            checkbox("Representative genomes", :selection, val = "representatifs", color = "grey"),
+            checkbox("Type-Strain genomes", :selection, val = "souchestype", color = "grey"),
+            checkbox("Genomes in Ensembl!", :selection, val = "ensembl", color = "grey"),
+            checkbox("Genomes tagged as complete", :selection, val = "complet", color = "grey"),
+        ], sm=6),
         #column(class="q-pa-sm",btn("Validate", @click(:choixbanque)), sm=1),
         ])
     cell([separator(color = "primary")])
@@ -535,7 +547,7 @@ function ui()  #btn("valider",color="red",@click("press_btn = true")), # @onbutt
 
 
 end
-@page("/nucworkshop", ui)
+@page("/ribodbreactive", ui)
 
 end
 

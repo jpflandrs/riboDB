@@ -1,11 +1,11 @@
 module App
 using GenieFramework
-using Main.Analysis
+
 
 using GenieFramework.Genie.Requests: postpayload
 
 route("/") do
-    [ h4("Vous voici sur le serveur PkXplorer") ]
+    [ h4("Vous voici sur le serveur riboDB") ]
 end
 
 route("/form") do
@@ -32,7 +32,7 @@ route("/result", method=POST) do
 end
 
 
-include("nucworkshop.jl")
+include("riboDBserveur.jl")
 include("moduletest.jl")
 end
 
