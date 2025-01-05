@@ -75,3 +75,780 @@
 ┌ Info: 2025-01-04 18:33:14 
 │ Web Server starting at http://127.0.0.1:8000 
 └ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 18:49:33 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 18:49:34 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 18:49:34 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 18:49:34 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 18:49:36 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 18:49:36 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 18:59:55 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 18:59:56 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 18:59:56 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 18:59:56 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 18:59:58 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 18:59:58 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Warning: 2025-01-04 19:01:02 UndefVarError(:validate_fasta_nucleic, Main.App.ReactiveForm)
+└ @ Stipple /Users/jean-pierreflandrois/.julia/packages/Stipple/Na0eY/src/Stipple.jl:1018
+┌ Info: 2025-01-04 19:19:11 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:19:12 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:19:13 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:19:13 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:19:14 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 19:19:14 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Error: 2025-01-04 19:19:27 MethodError: no method matching textfield(::String, ::String, ::Symbol; type::String)
+│ The function `textfield` exists, but no method is defined for this combination of argument types.
+│ 
+│ Closest candidates are:
+│   textfield(::Union{String, Symbol}, !Matched::Union{Nothing, Symbol}, ::Any...; content, kwargs...)
+│    @ StippleUI ~/.julia/packages/StippleUI/zmhna/src/FormInputs.jl:92
+│   textfield(!Matched::Union{Function, Vector}, !Matched::Union{Nothing, Symbol}, ::Any...; label, kwargs...)
+│    @ StippleUI ~/.julia/packages/StippleUI/zmhna/src/FormInputs.jl:103
+│   textfield(::Union{String, Symbol}; ...)
+│    @ StippleUI ~/.julia/packages/StippleUI/zmhna/src/FormInputs.jl:92
+│   ...
+│ 
+│ Stacktrace:
+│   [1] ui()
+│     @ Main.App.ReactiveForm ~/Documents/GitHub/riboDB/riboDBserveur.jl:467
+│   [2] html!(data::typeof(Main.App.ReactiveForm.ui); context::Module, status::Int64, headers::Dict{String, String}, layout::String, forceparse::Bool, noparse::Bool, vars::@Kwargs{model::Main.App.ReactiveForm.var"##Main.App.ReactiveForm_ReactiveModel!#230"})
+│     @ Genie.Renderer.Html ~/.julia/packages/Genie/TKJWe/src/renderers/Html.jl:583
+│   [3] (::Stipple.Pages.var"#7#10"{typeof(Main.App.ReactiveForm.ui), String, @Kwargs{}})()
+│     @ Stipple.Pages ~/.julia/packages/Stipple/Na0eY/src/Pages.jl:68
+│   [4] run_route(r::Genie.Router.Route)
+│     @ Genie.Router ~/.julia/packages/Genie/TKJWe/src/Router.jl:547
+│   [5] route_request(req::HTTP.Messages.Request, res::HTTP.Messages.Response; stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Router ~/.julia/packages/Genie/TKJWe/src/Router.jl:172
+│   [6] route_request
+│     @ ~/.julia/packages/Genie/TKJWe/src/Router.jl:147 [inlined]
+│   [7] handle_request(req::HTTP.Messages.Request, res::HTTP.Messages.Response; stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:300
+│   [8] handle_request
+│     @ ~/.julia/packages/Genie/TKJWe/src/Server.jl:292 [inlined]
+│   [9] (::Genie.Server.var"#27#28"{HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}}, HTTP.Messages.Request, HTTP.Messages.Response})()
+│     @ Genie.Server ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/macros.jl:123
+│  [10] #invokelatest#2
+│     @ ./essentials.jl:1055 [inlined]
+│  [11] invokelatest
+│     @ ./essentials.jl:1052 [inlined]
+│  [12] #153
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:425 [inlined]
+│  [13] run_work_thunk(thunk::Distributed.var"#153#154"{Genie.Server.var"#27#28"{HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}}, HTTP.Messages.Request, HTTP.Messages.Response}, Tuple{}, @Kwargs{}}, print_error::Bool)
+│     @ Distributed ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:70
+│  [14] #remotecall_fetch#158
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:450 [inlined]
+│  [15] remotecall_fetch
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:449 [inlined]
+│  [16] remotecall_fetch
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:492 [inlined]
+│  [17] setup_http_listener(req::HTTP.Messages.Request, res::HTTP.Messages.Response; stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:344
+│  [18] setup_http_listener (repeats 2 times)
+│     @ ~/.julia/packages/Genie/TKJWe/src/Server.jl:342 [inlined]
+│  [19] (::Genie.Server.var"#24#25"{typeof(Genie.Server.setup_http_listener)})(stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:313
+│  [20] setup_http_streamer(stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:333
+│  [21] (::Genie.Server.var"#6#12")(stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:124
+│  [22] #invokelatest#2
+│     @ ./essentials.jl:1055 [inlined]
+│  [23] invokelatest
+│     @ ./essentials.jl:1052 [inlined]
+│  [24] handle_connection(f::Function, c::HTTP.Connections.Connection{Sockets.TCPSocket}, listener::HTTP.Servers.Listener{Nothing, Sockets.TCPServer}, readtimeout::Int64, access_log::Nothing, verbose::Bool)
+│     @ HTTP.Servers ~/.julia/packages/HTTP/4AUPl/src/Servers.jl:469
+│  [25] (::HTTP.Servers.var"#16#17"{Genie.Server.var"#6#12", HTTP.Servers.Listener{Nothing, Sockets.TCPServer}, Set{HTTP.Connections.Connection}, Int64, Nothing, ReentrantLock, Bool, Base.Semaphore, HTTP.Connections.Connection{Sockets.TCPSocket}})()
+│     @ HTTP.Servers ~/.julia/packages/HTTP/4AUPl/src/Servers.jl:401
+│ 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:356
+┌ Info: 2025-01-04 19:19:49 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:19:49 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:20:21 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:20:22 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:20:23 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:20:23 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:20:25 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 19:20:25 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Error: 2025-01-04 19:20:40 MethodError: no method matching textfield(::String, ::String, ::Symbol; type::String)
+│ The function `textfield` exists, but no method is defined for this combination of argument types.
+│ 
+│ Closest candidates are:
+│   textfield(::Union{String, Symbol}, !Matched::Union{Nothing, Symbol}, ::Any...; content, kwargs...)
+│    @ StippleUI ~/.julia/packages/StippleUI/zmhna/src/FormInputs.jl:92
+│   textfield(!Matched::Union{Function, Vector}, !Matched::Union{Nothing, Symbol}, ::Any...; label, kwargs...)
+│    @ StippleUI ~/.julia/packages/StippleUI/zmhna/src/FormInputs.jl:103
+│   textfield(::Union{String, Symbol}; ...)
+│    @ StippleUI ~/.julia/packages/StippleUI/zmhna/src/FormInputs.jl:92
+│   ...
+│ 
+│ Stacktrace:
+│   [1] ui()
+│     @ Main.App.ReactiveForm ~/Documents/GitHub/riboDB/riboDBserveur.jl:467
+│   [2] html!(data::typeof(Main.App.ReactiveForm.ui); context::Module, status::Int64, headers::Dict{String, String}, layout::String, forceparse::Bool, noparse::Bool, vars::@Kwargs{model::Main.App.ReactiveForm.var"##Main.App.ReactiveForm_ReactiveModel!#230"})
+│     @ Genie.Renderer.Html ~/.julia/packages/Genie/TKJWe/src/renderers/Html.jl:583
+│   [3] (::Stipple.Pages.var"#7#10"{typeof(Main.App.ReactiveForm.ui), String, @Kwargs{}})()
+│     @ Stipple.Pages ~/.julia/packages/Stipple/Na0eY/src/Pages.jl:68
+│   [4] run_route(r::Genie.Router.Route)
+│     @ Genie.Router ~/.julia/packages/Genie/TKJWe/src/Router.jl:547
+│   [5] route_request(req::HTTP.Messages.Request, res::HTTP.Messages.Response; stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Router ~/.julia/packages/Genie/TKJWe/src/Router.jl:172
+│   [6] route_request
+│     @ ~/.julia/packages/Genie/TKJWe/src/Router.jl:147 [inlined]
+│   [7] handle_request(req::HTTP.Messages.Request, res::HTTP.Messages.Response; stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:300
+│   [8] handle_request
+│     @ ~/.julia/packages/Genie/TKJWe/src/Server.jl:292 [inlined]
+│   [9] (::Genie.Server.var"#27#28"{HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}}, HTTP.Messages.Request, HTTP.Messages.Response})()
+│     @ Genie.Server ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/macros.jl:123
+│  [10] #invokelatest#2
+│     @ ./essentials.jl:1055 [inlined]
+│  [11] invokelatest
+│     @ ./essentials.jl:1052 [inlined]
+│  [12] #153
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:425 [inlined]
+│  [13] run_work_thunk(thunk::Distributed.var"#153#154"{Genie.Server.var"#27#28"{HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}}, HTTP.Messages.Request, HTTP.Messages.Response}, Tuple{}, @Kwargs{}}, print_error::Bool)
+│     @ Distributed ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:70
+│  [14] #remotecall_fetch#158
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:450 [inlined]
+│  [15] remotecall_fetch
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:449 [inlined]
+│  [16] remotecall_fetch
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:492 [inlined]
+│  [17] setup_http_listener(req::HTTP.Messages.Request, res::HTTP.Messages.Response; stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:344
+│  [18] setup_http_listener (repeats 2 times)
+│     @ ~/.julia/packages/Genie/TKJWe/src/Server.jl:342 [inlined]
+│  [19] (::Genie.Server.var"#24#25"{typeof(Genie.Server.setup_http_listener)})(stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:313
+│  [20] setup_http_streamer(stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:333
+│  [21] (::Genie.Server.var"#6#12")(stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:124
+│  [22] #invokelatest#2
+│     @ ./essentials.jl:1055 [inlined]
+│  [23] invokelatest
+│     @ ./essentials.jl:1052 [inlined]
+│  [24] handle_connection(f::Function, c::HTTP.Connections.Connection{Sockets.TCPSocket}, listener::HTTP.Servers.Listener{Nothing, Sockets.TCPServer}, readtimeout::Int64, access_log::Nothing, verbose::Bool)
+│     @ HTTP.Servers ~/.julia/packages/HTTP/4AUPl/src/Servers.jl:469
+│  [25] (::HTTP.Servers.var"#16#17"{Genie.Server.var"#6#12", HTTP.Servers.Listener{Nothing, Sockets.TCPServer}, Set{HTTP.Connections.Connection}, Int64, Nothing, ReentrantLock, Bool, Base.Semaphore, HTTP.Connections.Connection{Sockets.TCPSocket}})()
+│     @ HTTP.Servers ~/.julia/packages/HTTP/4AUPl/src/Servers.jl:401
+│ 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:356
+┌ Info: 2025-01-04 19:21:05 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:21:05 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:21:17 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:21:17 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:21:41 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:21:42 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:21:43 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:21:43 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:21:44 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 19:21:45 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 19:24:05 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:24:06 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:24:06 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:24:06 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:24:08 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 19:24:08 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 19:27:22 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:27:22 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:27:38 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:27:38 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:28:06 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:28:07 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:28:07 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:28:07 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:28:09 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 19:28:09 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Error: 2025-01-04 19:28:21 UndefVarError: `S` not defined in `Main.App.ReactiveForm`
+│ Suggestion: check for spelling errors or missing imports.
+│ Stacktrace:
+│   [1] ui()
+│     @ Main.App.ReactiveForm ~/Documents/GitHub/riboDB/riboDBserveur.jl:467
+│   [2] html!(data::typeof(Main.App.ReactiveForm.ui); context::Module, status::Int64, headers::Dict{String, String}, layout::String, forceparse::Bool, noparse::Bool, vars::@Kwargs{model::Main.App.ReactiveForm.var"##Main.App.ReactiveForm_ReactiveModel!#230"})
+│     @ Genie.Renderer.Html ~/.julia/packages/Genie/TKJWe/src/renderers/Html.jl:583
+│   [3] (::Stipple.Pages.var"#7#10"{typeof(Main.App.ReactiveForm.ui), String, @Kwargs{}})()
+│     @ Stipple.Pages ~/.julia/packages/Stipple/Na0eY/src/Pages.jl:68
+│   [4] run_route(r::Genie.Router.Route)
+│     @ Genie.Router ~/.julia/packages/Genie/TKJWe/src/Router.jl:547
+│   [5] route_request(req::HTTP.Messages.Request, res::HTTP.Messages.Response; stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Router ~/.julia/packages/Genie/TKJWe/src/Router.jl:172
+│   [6] route_request
+│     @ ~/.julia/packages/Genie/TKJWe/src/Router.jl:147 [inlined]
+│   [7] handle_request(req::HTTP.Messages.Request, res::HTTP.Messages.Response; stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:300
+│   [8] handle_request
+│     @ ~/.julia/packages/Genie/TKJWe/src/Server.jl:292 [inlined]
+│   [9] (::Genie.Server.var"#27#28"{HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}}, HTTP.Messages.Request, HTTP.Messages.Response})()
+│     @ Genie.Server ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/macros.jl:123
+│  [10] #invokelatest#2
+│     @ ./essentials.jl:1055 [inlined]
+│  [11] invokelatest
+│     @ ./essentials.jl:1052 [inlined]
+│  [12] #153
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:425 [inlined]
+│  [13] run_work_thunk(thunk::Distributed.var"#153#154"{Genie.Server.var"#27#28"{HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}}, HTTP.Messages.Request, HTTP.Messages.Response}, Tuple{}, @Kwargs{}}, print_error::Bool)
+│     @ Distributed ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:70
+│  [14] #remotecall_fetch#158
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:450 [inlined]
+│  [15] remotecall_fetch
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:449 [inlined]
+│  [16] remotecall_fetch
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:492 [inlined]
+│  [17] setup_http_listener(req::HTTP.Messages.Request, res::HTTP.Messages.Response; stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:344
+│  [18] setup_http_listener (repeats 2 times)
+│     @ ~/.julia/packages/Genie/TKJWe/src/Server.jl:342 [inlined]
+│  [19] (::Genie.Server.var"#24#25"{typeof(Genie.Server.setup_http_listener)})(stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:313
+│  [20] setup_http_streamer(stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:333
+│  [21] (::Genie.Server.var"#6#12")(stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:124
+│  [22] #invokelatest#2
+│     @ ./essentials.jl:1055 [inlined]
+│  [23] invokelatest
+│     @ ./essentials.jl:1052 [inlined]
+│  [24] handle_connection(f::Function, c::HTTP.Connections.Connection{Sockets.TCPSocket}, listener::HTTP.Servers.Listener{Nothing, Sockets.TCPServer}, readtimeout::Int64, access_log::Nothing, verbose::Bool)
+│     @ HTTP.Servers ~/.julia/packages/HTTP/4AUPl/src/Servers.jl:469
+│  [25] (::HTTP.Servers.var"#16#17"{Genie.Server.var"#6#12", HTTP.Servers.Listener{Nothing, Sockets.TCPServer}, Set{HTTP.Connections.Connection}, Int64, Nothing, ReentrantLock, Bool, Base.Semaphore, HTTP.Connections.Connection{Sockets.TCPSocket}})()
+│     @ HTTP.Servers ~/.julia/packages/HTTP/4AUPl/src/Servers.jl:401
+│ 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:356
+┌ Info: 2025-01-04 19:29:51 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:29:51 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:30:15 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:30:16 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:30:16 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:30:16 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:30:18 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 19:30:18 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 19:34:15 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:34:16 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:34:17 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:34:17 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:34:18 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 19:34:19 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 19:37:12 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:37:13 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:37:13 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:37:13 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:37:15 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 19:37:15 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 19:41:16 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:41:17 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 19:41:18 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:41:18 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:41:19 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 19:41:20 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 19:42:47 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 19:42:47 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 20:54:27 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 20:54:27 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 20:54:57 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 20:54:58 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 20:54:59 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 20:54:59 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 20:55:01 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 20:55:01 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 21:01:39 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:01:39 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:02:05 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:02:06 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:02:07 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:02:07 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:02:09 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 21:02:09 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Error: 2025-01-04 21:02:24 UndefVarError: `custom_styles` not defined in `Main.App.ReactiveForm`
+│ Suggestion: check for spelling errors or missing imports.
+│ Stacktrace:
+│   [1] ui()
+│     @ Main.App.ReactiveForm ~/Documents/GitHub/riboDB/riboDBserveur.jl:471
+│   [2] html!(data::typeof(Main.App.ReactiveForm.ui); context::Module, status::Int64, headers::Dict{String, String}, layout::String, forceparse::Bool, noparse::Bool, vars::@Kwargs{model::Main.App.ReactiveForm.var"##Main.App.ReactiveForm_ReactiveModel!#230"})
+│     @ Genie.Renderer.Html ~/.julia/packages/Genie/TKJWe/src/renderers/Html.jl:583
+│   [3] (::Stipple.Pages.var"#7#10"{typeof(Main.App.ReactiveForm.ui), String, @Kwargs{}})()
+│     @ Stipple.Pages ~/.julia/packages/Stipple/Na0eY/src/Pages.jl:68
+│   [4] run_route(r::Genie.Router.Route)
+│     @ Genie.Router ~/.julia/packages/Genie/TKJWe/src/Router.jl:547
+│   [5] route_request(req::HTTP.Messages.Request, res::HTTP.Messages.Response; stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Router ~/.julia/packages/Genie/TKJWe/src/Router.jl:172
+│   [6] route_request
+│     @ ~/.julia/packages/Genie/TKJWe/src/Router.jl:147 [inlined]
+│   [7] handle_request(req::HTTP.Messages.Request, res::HTTP.Messages.Response; stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:300
+│   [8] handle_request
+│     @ ~/.julia/packages/Genie/TKJWe/src/Server.jl:292 [inlined]
+│   [9] (::Genie.Server.var"#27#28"{HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}}, HTTP.Messages.Request, HTTP.Messages.Response})()
+│     @ Genie.Server ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/macros.jl:123
+│  [10] #invokelatest#2
+│     @ ./essentials.jl:1055 [inlined]
+│  [11] invokelatest
+│     @ ./essentials.jl:1052 [inlined]
+│  [12] #153
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:425 [inlined]
+│  [13] run_work_thunk(thunk::Distributed.var"#153#154"{Genie.Server.var"#27#28"{HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}}, HTTP.Messages.Request, HTTP.Messages.Response}, Tuple{}, @Kwargs{}}, print_error::Bool)
+│     @ Distributed ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:70
+│  [14] #remotecall_fetch#158
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:450 [inlined]
+│  [15] remotecall_fetch
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:449 [inlined]
+│  [16] remotecall_fetch
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:492 [inlined]
+│  [17] setup_http_listener(req::HTTP.Messages.Request, res::HTTP.Messages.Response; stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:344
+│  [18] setup_http_listener (repeats 2 times)
+│     @ ~/.julia/packages/Genie/TKJWe/src/Server.jl:342 [inlined]
+│  [19] (::Genie.Server.var"#24#25"{typeof(Genie.Server.setup_http_listener)})(stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:313
+│  [20] setup_http_streamer(stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:333
+│  [21] (::Genie.Server.var"#6#12")(stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:124
+│  [22] #invokelatest#2
+│     @ ./essentials.jl:1055 [inlined]
+│  [23] invokelatest
+│     @ ./essentials.jl:1052 [inlined]
+│  [24] handle_connection(f::Function, c::HTTP.Connections.Connection{Sockets.TCPSocket}, listener::HTTP.Servers.Listener{Nothing, Sockets.TCPServer}, readtimeout::Int64, access_log::Nothing, verbose::Bool)
+│     @ HTTP.Servers ~/.julia/packages/HTTP/4AUPl/src/Servers.jl:469
+│  [25] (::HTTP.Servers.var"#16#17"{Genie.Server.var"#6#12", HTTP.Servers.Listener{Nothing, Sockets.TCPServer}, Set{HTTP.Connections.Connection}, Int64, Nothing, ReentrantLock, Bool, Base.Semaphore, HTTP.Connections.Connection{Sockets.TCPSocket}})()
+│     @ HTTP.Servers ~/.julia/packages/HTTP/4AUPl/src/Servers.jl:401
+│ 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:356
+┌ Info: 2025-01-04 21:02:56 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:02:56 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Error: 2025-01-04 21:03:04 UndefVarError: `custom_styles` not defined in `Main.App.ReactiveForm`
+│ Suggestion: check for spelling errors or missing imports.
+│ Stacktrace:
+│   [1] ui()
+│     @ Main.App.ReactiveForm ~/Documents/GitHub/riboDB/riboDBserveur.jl:471
+│   [2] html!(data::typeof(Main.App.ReactiveForm.ui); context::Module, status::Int64, headers::Dict{String, String}, layout::String, forceparse::Bool, noparse::Bool, vars::@Kwargs{model::Main.App.ReactiveForm.var"##Main.App.ReactiveForm_ReactiveModel!#230"})
+│     @ Genie.Renderer.Html ~/.julia/packages/Genie/TKJWe/src/renderers/Html.jl:583
+│   [3] (::Stipple.Pages.var"#7#10"{typeof(Main.App.ReactiveForm.ui), String, @Kwargs{}})()
+│     @ Stipple.Pages ~/.julia/packages/Stipple/Na0eY/src/Pages.jl:68
+│   [4] run_route(r::Genie.Router.Route)
+│     @ Genie.Router ~/.julia/packages/Genie/TKJWe/src/Router.jl:547
+│   [5] route_request(req::HTTP.Messages.Request, res::HTTP.Messages.Response; stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Router ~/.julia/packages/Genie/TKJWe/src/Router.jl:172
+│   [6] route_request
+│     @ ~/.julia/packages/Genie/TKJWe/src/Router.jl:147 [inlined]
+│   [7] handle_request(req::HTTP.Messages.Request, res::HTTP.Messages.Response; stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:300
+│   [8] handle_request
+│     @ ~/.julia/packages/Genie/TKJWe/src/Server.jl:292 [inlined]
+│   [9] (::Genie.Server.var"#27#28"{HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}}, HTTP.Messages.Request, HTTP.Messages.Response})()
+│     @ Genie.Server ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/macros.jl:123
+│  [10] #invokelatest#2
+│     @ ./essentials.jl:1055 [inlined]
+│  [11] invokelatest
+│     @ ./essentials.jl:1052 [inlined]
+│  [12] #153
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:425 [inlined]
+│  [13] run_work_thunk(thunk::Distributed.var"#153#154"{Genie.Server.var"#27#28"{HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}}, HTTP.Messages.Request, HTTP.Messages.Response}, Tuple{}, @Kwargs{}}, print_error::Bool)
+│     @ Distributed ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:70
+│  [14] #remotecall_fetch#158
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:450 [inlined]
+│  [15] remotecall_fetch
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:449 [inlined]
+│  [16] remotecall_fetch
+│     @ ~/.julia/juliaup/julia-1.11.2+0.x64.apple.darwin14/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:492 [inlined]
+│  [17] setup_http_listener(req::HTTP.Messages.Request, res::HTTP.Messages.Response; stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:344
+│  [18] setup_http_listener (repeats 2 times)
+│     @ ~/.julia/packages/Genie/TKJWe/src/Server.jl:342 [inlined]
+│  [19] (::Genie.Server.var"#24#25"{typeof(Genie.Server.setup_http_listener)})(stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:313
+│  [20] setup_http_streamer(stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:333
+│  [21] (::Genie.Server.var"#6#12")(stream::HTTP.Streams.Stream{HTTP.Messages.Request, HTTP.Connections.Connection{Sockets.TCPSocket}})
+│     @ Genie.Server ~/.julia/packages/Genie/TKJWe/src/Server.jl:124
+│  [22] #invokelatest#2
+│     @ ./essentials.jl:1055 [inlined]
+│  [23] invokelatest
+│     @ ./essentials.jl:1052 [inlined]
+│  [24] handle_connection(f::Function, c::HTTP.Connections.Connection{Sockets.TCPSocket}, listener::HTTP.Servers.Listener{Nothing, Sockets.TCPServer}, readtimeout::Int64, access_log::Nothing, verbose::Bool)
+│     @ HTTP.Servers ~/.julia/packages/HTTP/4AUPl/src/Servers.jl:469
+│  [25] (::HTTP.Servers.var"#16#17"{Genie.Server.var"#6#12", HTTP.Servers.Listener{Nothing, Sockets.TCPServer}, Set{HTTP.Connections.Connection}, Int64, Nothing, ReentrantLock, Bool, Base.Semaphore, HTTP.Connections.Connection{Sockets.TCPSocket}})()
+│     @ HTTP.Servers ~/.julia/packages/HTTP/4AUPl/src/Servers.jl:401
+│ 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:356
+┌ Info: 2025-01-04 21:03:31 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:03:32 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:03:33 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:03:33 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:03:34 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 21:03:34 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 21:05:53 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:05:53 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:06:16 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:06:17 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:06:18 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:06:18 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:06:20 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 21:06:20 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 21:07:26 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:07:26 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:07:48 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:07:49 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:07:50 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:07:50 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:07:52 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 21:07:52 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 21:12:34 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:12:34 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:13:13 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:13:13 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:13:36 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:13:37 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:13:38 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:13:38 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:13:39 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 21:13:39 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 21:16:03 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:16:03 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:16:27 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:16:29 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:16:29 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:16:29 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:16:31 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 21:16:31 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 21:18:58 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:18:58 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:19:22 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:19:23 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:19:23 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:19:23 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:19:25 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 21:19:25 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 21:20:24 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:20:24 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:22:49 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:22:49 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:23:22 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:23:23 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:23:24 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:23:24 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:23:26 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 21:23:26 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 21:24:40 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:24:40 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:25:03 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:25:04 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:25:05 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:25:05 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:25:07 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 21:25:07 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 21:27:34 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:27:34 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:27:46 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:27:46 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:28:09 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:28:10 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:28:10 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:28:10 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:28:12 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 21:28:12 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 21:31:06 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:31:07 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:31:07 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:31:07 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:31:09 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 21:31:09 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 21:33:11 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:33:11 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:33:33 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:33:34 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:33:35 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:33:35 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:33:37 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 21:33:37 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 21:35:40 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:35:41 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 21:35:41 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:35:41 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 21:35:43 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 21:35:43 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 22:20:00 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 22:20:01 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 22:20:01 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:20:01 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:20:03 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 22:20:03 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 22:21:56 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:21:56 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:23:53 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:23:53 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:25:24 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:25:24 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:25:51 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:25:51 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:26:16 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 22:26:17 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 22:26:17 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:26:17 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:26:19 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 22:26:19 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-04 22:29:29 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:29:29 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:33:21 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:33:21 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:33:45 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 22:33:46 Watching ["/Users/jean-pierreflandrois/Documents/GitHub/riboDB"]
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:19
+┌ Info: 2025-01-04 22:33:47 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:33:47 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-04 22:33:48 
+│ Web Server starting at http://127.0.0.1:8000 
+└ @ Genie.Server /Users/jean-pierreflandrois/.julia/packages/Genie/TKJWe/src/Server.jl:182
+┌ Info: 2025-01-04 22:33:48 Listening on: 127.0.0.1:8000, thread id: 1
+└ @ HTTP.Servers /Users/jean-pierreflandrois/.julia/packages/HTTP/4AUPl/src/Servers.jl:382
+┌ Info: 2025-01-05 07:26:24 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
+┌ Info: 2025-01-05 07:26:24 Autoreloading
+└ @ GenieAutoReload /Users/jean-pierreflandrois/.julia/packages/GenieAutoReload/qpImd/src/GenieAutoReload.jl:22
