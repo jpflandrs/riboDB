@@ -265,6 +265,31 @@ function selecteurfamilles(nomsets) # bactprot archprot universaux
     return fam
 end
 
+#la fonction de création de classeur utilisateur est dans le serveur TCP !
+# function uniqueutilisateur()
+#     timestamp::String=string(renvoieepoch())
+#     random_string::String = randstring(8)  # 8-char random
+#     fichtempo::String =  joinpath(pwd(),"public","utilisateurs","task_$(timestamp)_$(random_string)")
+#     mkdir(fichtempo)
+#     atelier::String=joinpath(fichtempo,"atelier_"*timestamp*"_"*random_string)
+#     mkdir(atelier)
+#     #putzen(joinpath(pwd(),"public","utilisateurs"))
+#     return atelier
+# end
+
+# function putzen(classeur::String)
+    
+#     monclasseur::Vector{String}=readdir(classeur,join=true)
+#     timestamp::Int64=renvoieepoch()
+#     for u in monclasseur
+#         if occursin("task",u)
+#             #println(u," ",parse(Int64,split(u,'_')[2])-timestamp) #tester
+#             if timestamp - parse(Int64,split(u,'_')[2]) >3600000
+#                 rm(u, recursive=true)
+#             end
+#         end
+#     end
+# end
 
 # Function to define custom CSS styles taken from https://github.com/BuiltWithGenie/GenieTodo/blob/main/genietodo.jl
 function custom_styles()
