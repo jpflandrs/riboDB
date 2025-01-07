@@ -34,8 +34,8 @@ using DataFrames
     
     @in testing = false
     @in ddff_pagination = DataTablePagination(rows_per_page = 1)
-
-    
+    @in encours =false
+    @in closed = false
     @in S = "?!"
     
     @in posdsk::String ="waiting for the link"
@@ -69,6 +69,8 @@ using DataFrames
         
         travail = false
         trigger = false
+        encours =false
+        closed = false
     end
     
     @onchange testing begin
@@ -77,6 +79,8 @@ using DataFrames
             selectionP=["bactprot","universaux","archprot"]
             selectionQ=["representatifs"]
             S="Esch Staphylococcus_aureus Methanohalo"
+            encours =false
+            closed = false
         else
             S="??!"
         end
@@ -92,7 +96,8 @@ using DataFrames
         ddff_pagination = DataTablePagination(rows_per_page = 1)
         download_event = false
         downloadinfo = "not Ready"
-        
+        encours =false
+        closed = false
         message = ""
         
         posdsk ="waiting for the link"
@@ -109,6 +114,7 @@ using DataFrames
     end
 
     @onbutton trigger begin
+        travail = true
         println("$selectionO  $selectionP  $selectionQ")
         if selectionO==[] || selectionP==[] || selectionQ==[]
             ticketvalide=false
@@ -167,10 +173,10 @@ using DataFrames
             println(Spresentable,genomesafaire,postdsk)
             host = "0.0.0.0"  # Localhost or the actual IP of the server listen(IPv4("0.0.0.0"), 8080)
             port = 8080       # Ensure this matches the server's port
-            vecteurfamillescherchées::Vector{String}=["Family"]
-            vecteurprotuniques::Vector{String}=["Unique"]
-            vecteurprotmultiples::Vector{String}=["Multiple"]
-            ddff = DataTable(DataFrame(Family=String["no data101"],Uniques=String["no data"],Multiples=String["no data"]))
+            vecteurfamillescherchées::Vector{String}=[]
+            vecteurprotuniques::Vector{String}=[]
+            vecteurprotmultiples::Vector{String}=[]
+            ddff = DataTable(DataFrame(Family=String["no data"],Uniques=String["no data"],Multiples=String["no data"]))
             ddff_pagination = DataTablePagination(rows_per_page = 5)
             # Create a TCP connection to the server
             try
@@ -178,7 +184,7 @@ using DataFrames
                 response = readline(sock)  # Reads one line from the server
                 println("réponse $response")
                 #println("Connected to server at $host:$port \n")
-                
+                encours = true
                 
                 # message="F1;$ti;$query;$qual;$diruseur\n" CNT;us9;Escherichia;#T,#R,#C,#E;1736194681541_ZABY1p6s;
                 for funit in mesfamilles
@@ -197,6 +203,7 @@ using DataFrames
                 # Close the connection
                 close(sock)
                 println("Connection closed.")
+                closed=true
             catch err
                 println("Error: ", err)
             end
@@ -390,7 +397,7 @@ function ui()  #btn("valider",color="red",@click("press_btn = true")), # @onbutt
     cell([btn("Submit", @click(:trigger),loading =:travail,color = "secondary")],[btn("Clear", @click(:clearit)),toggle("exemple use", :testing),])
     cell([separator(color = "primary")]) 
     cell(["Process info: {{termine}}"])
-        Html.div(cell([h5("Statistics"),table(:ddff, paginationsync = :ddff_pagination, flat = true, bordered = true, title = "STATISTICS")]) )
+        Html.div(cell([h5("Statistics"),table(:ddff, paginationsync = :ddff_pagination, flat = true, bordered = true, title = "riboDB content for this query:")]), @showif("encours"))
     ]
 
 
