@@ -44,7 +44,8 @@ using DataFrames
     @in downloadinfo::String = "not Ready"
     @out termine = "Ready for a new submission"
     @out ddff = DataTable(DataFrame(Family=String["no data"],Uniques=String["no data"],Multiples=String["no data"]))
-    
+    @in compteurseqprot::Int64=0
+    @in compteurseqrna::Int64=0
     @out pourgzip = ""
 
     @onchange isready begin
@@ -66,7 +67,7 @@ using DataFrames
         pourgzip = ""
         
         S = "?!"
-        
+        compteurseq=0
         termine = "Cleared, Ready for a new submission"
         testing = false
         vuebig =false
@@ -87,6 +88,7 @@ using DataFrames
             encours =false
             closed = false
             vuebig =false
+            compteurseq=0
         else
             S="??!"
         end
@@ -99,6 +101,7 @@ using DataFrames
         selectionP = []
         selectionQ = []
         selectionN = []
+        compteurseq=0
         NP="na"
         ddff = DataTable(DataFrame(Family=String["no data101"],Uniques=String["no data"],Multiples=String["no data"]))
         ddff_pagination = DataTablePagination(rows_per_page = 1)
@@ -191,6 +194,7 @@ using DataFrames
             ddff = DataTable(DataFrame(Family=String["no data"],Uniques=String["no data"],Multiples=String["no data"]))
             ddff_pagination = DataTablePagination(rows_per_page = 5)
             funit::String=""
+            compteurseq=0
             # Create a TCP connection to the server
             try
                 sock = connect(host, port)
@@ -211,12 +215,14 @@ using DataFrames
                     responsevect::Vector{String}=[String(i) for i in split(response,';')]
                     push!(vecteurfamillescherchées, responsevect[2])
                     push!(vecteurprotuniques, responsevect[3])
+                    compteurseq += parse(Int64,responsevect[3])
                     if funit  ∉["16SrDNA", "23SrDNA", "5SrDNA"]
                         push!(vecteurprotmultiples, responsevect[4])
+                        compteurseq += parse(Int64,responsevect[4])
                     else 
                         push!(vecteurprotmultiples, "not available")
                     end
-                    println(responsevect) #["/Users/jean-pierreflandrois/Documents/GitHub/TCPriboDB/public/utilisateurs/task_1736200658296_D3ZawUy6/atelier_1736200658296_D3ZawUy6", "ul22", "18", "0"
+                    println(compteurseq) #["/Users/jean-pierreflandrois/Documents/GitHub/TCPriboDB/public/utilisateurs/task_1736200658296_D3ZawUy6/atelier_1736200658296_D3ZawUy6", "ul22", "18", "0"
                     
                     ddff = DataTable(DataFrame(Family=vecteurfamillescherchées,Uniques=vecteurprotuniques,Multiples=vecteurprotmultiples))
                     if funit == mesfamilles[end]
@@ -239,8 +245,7 @@ using DataFrames
             # else
             #     totalsequencesproduites=sum(vecteurprotuniques)
             # end
-            S = "Result: $prévisionsfamilles  families treated for query $S "
-                
+            S = "Result: $prévisionsfamilles  families treated for query $S,  $compteurseq sequences found"
             travail = false
             trigger = false
             clearit = false
