@@ -16,13 +16,14 @@ using DataFrames
     #["statseules", "extraction", "bactprot", "archprot", "universaux", "representatifs", "souchestype", "ensembl", "complet"]
     
     @in CheckboxMultiple_checked = (false, @in(selectionO = []))
-    @in selection=["extraction"]
+    @in selectionO=["extraction"]
     @in CheckboxMultiple_checked = (false, @in(selectionP = []))
-    @in selection=["bactprot","universaux"]
+    @in selectionP=["bactprot","universaux"]
     @in CheckboxMultiple_checked = (false, @in(selectionQ = []))
     @in selectionQ=["representatifs"]
-    
-    
+    @in CheckboxMultiple_checked = (false, @in(selectionN = []))#16S etc...
+    @in selectionN=[]
+    @in NP="na"
     
     @in trigger = false
     @in clearit = false
@@ -35,14 +36,14 @@ using DataFrames
     @in testing = false
     @in ddff_pagination = DataTablePagination(rows_per_page = 1)
     @in encours =false
+    @in vuebig =false
     @in closed = false
     @in S = "?!"
-    
+    @in montre_moi_tirer = false
     @in posdsk::String ="waiting for the link"
     @in downloadinfo::String = "not Ready"
-    #@out genomeid = []
     @out termine = "Ready for a new submission"
-    @out ddff = DataTable(DataFrame(Family=String["no data101"],Uniques=String["no data"],Multiples=String["no data"]))
+    @out ddff = DataTable(DataFrame(Family=String["no data"],Uniques=String["no data"],Multiples=String["no data"]))
     
     @out pourgzip = ""
 
@@ -51,9 +52,11 @@ using DataFrames
         selectionO=["extraction"]
         selectionP=["bactprot","universaux"]
         selectionQ=["representatifs"]
-    
-        ddff = DataTable(DataFrame(Family=String["no data101"],Uniques=String["no data"],Multiples=String["no data"]))
+        selectionN=[]
+        NP="na"
+        ddff = DataTable(DataFrame(Family=String["no data"],Uniques=String["no data"],Multiples=String["no data"]))
         ddff_pagination = DataTablePagination(rows_per_page = 1)
+        montre_moi_tirer = false
         download_event = false
         downloadinfo = "not Ready"
         
@@ -66,7 +69,7 @@ using DataFrames
         
         termine = "Cleared, Ready for a new submission"
         testing = false
-        
+        vuebig =false
         travail = false
         trigger = false
         encours =false
@@ -78,9 +81,12 @@ using DataFrames
             selectionO=["extraction"]
             selectionP=["bactprot","universaux","archprot"]
             selectionQ=["representatifs"]
+            selectionN=[]
+            NP="na"
             S="Esch Staphylococcus_aureus Methanohalo"
             encours =false
             closed = false
+            vuebig =false
         else
             S="??!"
         end
@@ -92,14 +98,17 @@ using DataFrames
         selectionO = []
         selectionP = []
         selectionQ = []
+        selectionN = []
+        NP="na"
         ddff = DataTable(DataFrame(Family=String["no data101"],Uniques=String["no data"],Multiples=String["no data"]))
         ddff_pagination = DataTablePagination(rows_per_page = 1)
         download_event = false
         downloadinfo = "not Ready"
+        montre_moi_tirer = false
         encours =false
         closed = false
         message = ""
-        
+        vuebig =false
         posdsk ="waiting for the link"
         pourgzip = ""
         
@@ -116,12 +125,13 @@ using DataFrames
     @onbutton trigger begin
         travail = true
         println("$selectionO  $selectionP  $selectionQ")
-        if selectionO==[] || selectionP==[] || selectionQ==[]
+        if selectionO == [] && selectionP== [] && selectionN== []
             ticketvalide=false
+            S = " MISSING options or proteins selection"
             termine = "Global Parameters incomplete, please precise your selection"
         end
-        #nettoyer avant en cas de non utilisation du bouton clear
-        ddff = DataTable(DataFrame(Family=String["no data101"],Uniques=String["no data"],Multiples=String["no data"]))
+        #nettoyer par principe
+        ddff = DataTable(DataFrame(Family=String["no data"],Uniques=String["no data"],Multiples=String["no data"]))
         posdsk ="waiting for the link"
         downloadinfo = "not Ready"
         
@@ -141,13 +151,14 @@ using DataFrames
             println(Ssplit)
             if length(Ssplit) >5
                 termine ="NO MORE THAN 5 ITEMS"
-                S=join(Ssplit[1:5]," ")
+                S="Is that right ? "*join(Ssplit[1:5]," ")
                 ticketvalide=false
             end
             println("A $ticketvalide")
             for u in split(strip(S)," ")
                 if length(u) < 4 
                     termine ="each query item must be longer than 5"
+                    S=" $u is too short ! in "*join(Ssplit," ")
                     ticketvalide=false
                 else
                     instructionS=instructionS*" "*u
@@ -159,15 +170,16 @@ using DataFrames
             #ddff_pagination = DataTablePagination(rows_per_page = 5)
             # if paramètres == false
             #     termine = "Please choose and valid the parameters"
-            termine = "Fasta verifications"
+            termine = "Sending $S to the riboDB TCP-server"
         end
         
-       if ticketvalide #on peut y aller
+        if ticketvalide #on peut y aller
             postdsk=uniqueutilisateursimplifié()
             println(postdsk)
-            println(selectionP)
-            mesfamilles=selecteurfamilles(selectionP)
-            println(mesfamilles)
+            mesfamilles=selecteurfamilles(union(selectionP,selectionN)) #on ajoute les RNA (selectionN)
+            #println("mes familles: $mesfamilles")
+            prévisionsfamilles=length(mesfamilles)
+            NP=string(prévisionsfamilles)
             optionsx=replace(replace(join(selectionO), "extraction" => "F1", "statseules" => "CNT"), "F1CNT" => "F1")
             genomesafaire=replace(replace(join(selectionQ,','),"representatifs" => "#R", "souchestype" => "#T", "ensembl" => "#E", "complet" => "#C"), "#R,#T" => "#R#T")           
             println(Spresentable,genomesafaire,postdsk)
@@ -178,56 +190,82 @@ using DataFrames
             vecteurprotmultiples::Vector{String}=[]
             ddff = DataTable(DataFrame(Family=String["no data"],Uniques=String["no data"],Multiples=String["no data"]))
             ddff_pagination = DataTablePagination(rows_per_page = 5)
+            funit::String=""
             # Create a TCP connection to the server
             try
                 sock = connect(host, port)
                 response = readline(sock)  # Reads one line from the server
-                println("réponse $response")
+                termine= " Servers answer: $response"
                 #println("Connected to server at $host:$port \n")
                 encours = true
                 
                 # message="F1;$ti;$query;$qual;$diruseur\n" CNT;us9;Escherichia;#T,#R,#C,#E;1736194681541_ZABY1p6s;
+                cptfamilles::Int64=0
+                vuebig =true
                 for funit in mesfamilles
                     message=join([optionsx,funit,Spresentable,genomesafaire,postdsk*"\n"],";") 
+                    println(message)
                     write(sock, message)
                     response = readline(sock)  # Reads one line from the server
                     println("réponse $response") #/Users/jean-pierreflandrois/Documents/GitHub/TCPriboDB/public/utilisateurs/task_1736200658296_D3ZawUy6/atelier_1736200658296_D3ZawUy6;ul1;18;0
                     responsevect::Vector{String}=[String(i) for i in split(response,';')]
                     push!(vecteurfamillescherchées, responsevect[2])
                     push!(vecteurprotuniques, responsevect[3])
-                    push!(vecteurprotmultiples, responsevect[4])
+                    if funit  ∉["16SrDNA", "23SrDNA", "5SrDNA"]
+                        push!(vecteurprotmultiples, responsevect[4])
+                    else 
+                        push!(vecteurprotmultiples, "not available")
+                    end
                     println(responsevect) #["/Users/jean-pierreflandrois/Documents/GitHub/TCPriboDB/public/utilisateurs/task_1736200658296_D3ZawUy6/atelier_1736200658296_D3ZawUy6", "ul22", "18", "0"
                     
                     ddff = DataTable(DataFrame(Family=vecteurfamillescherchées,Uniques=vecteurprotuniques,Multiples=vecteurprotmultiples))
+                    if funit == mesfamilles[end]
+                        posdsk = responsevect[1]
+                    end
+                    cptfamilles+=1
+                    NP=string(prévisionsfamilles-cptfamilles)
                 end
+                vuebig =false
                 # Close the connection
                 close(sock)
-                println("Connection closed.")
+                termine = "  Process ended correctly"
                 closed=true
             catch err
                 println("Error: ", err)
+                termine = "Error $err"
             end
-        
-
-            S = "EXPLORATION FINISHED\n-------------------\n"*S*"\n-------------------\nEXPLORATION FINISHED\n-------------------\n"
+            # if funit  ∉["16SrDNA", "23SrDNA", "5SrDNA"]
+            #     totalsequencesproduites=sum(vecteurprotuniques)+sum(vecteurprotmultiples)
+            # else
+            #     totalsequencesproduites=sum(vecteurprotuniques)
+            # end
+            S = "Result: $prévisionsfamilles  families treated for query $S "
                 
             travail = false
             trigger = false
             clearit = false
-       end   
+            montre_moi_tirer = true
+       
+        else
+            #S = "/!\\ Faulty Query Please Verify !"
+            travail = false
+            trigger = false
+            clearit = false
+        end   
         
     end
+    
     @event download_event begin
-        downloadinfo = "running..." #/Users/jean-pierreflandrois/Documents/PKDBGENIESTIPPLE/public/utilisateurs/task_20241013_220057_lfXiwPpZ/atelier
+        downloadinfo = "running..." 
         #println("downloda process")
-        #println(posdsk)
+        println(posdsk)
         pourgzip=compresser(splitdir(posdsk)[1]) #compresser atelier sous le nom de l'utilisateur
-        #println("=====")
+        println("=====")
         #println(pourgzip)
         downloadinfo = pourgzip
         try
-            solution = joinpath("public", "utilisateurs", splitdir(posdsk)[1],pourgzip)
-            #println("downloading...",joinpath("public", "utilisateurs", splitdir(posdsk)[1],pourgzip))
+            solution = joinpath(splitdir(posdsk)[1],pourgzip)
+            println("downloading...",joinpath(splitdir(posdsk)[1],pourgzip))
             io = IOBuffer()
             open(solution, "r") do file 
                 write(io, read(file))
@@ -272,31 +310,36 @@ function selecteurfamilles(nomsets) # bactprot archprot universaux
     return fam
 end
 
-#la fonction de création de classeur utilisateur est dans le serveur TCP !
-# function uniqueutilisateur()
-#     timestamp::String=string(renvoieepoch())
-#     random_string::String = randstring(8)  # 8-char random
-#     fichtempo::String =  joinpath(pwd(),"public","utilisateurs","task_$(timestamp)_$(random_string)")
-#     mkdir(fichtempo)
-#     atelier::String=joinpath(fichtempo,"atelier_"*timestamp*"_"*random_string)
-#     mkdir(atelier)
-#     #putzen(joinpath(pwd(),"public","utilisateurs"))
-#     return atelier
-# end
-
-# function putzen(classeur::String)
+function compresser(classeur_utilisateur) #intermédiaire de zippp (oui 3 p) pour travailler dans le directory utilisateur 
+    #pwd(),"public","utilisateurs","task_$(timestamp)_$(random_string)"
     
-#     monclasseur::Vector{String}=readdir(classeur,join=true)
-#     timestamp::Int64=renvoieepoch()
-#     for u in monclasseur
-#         if occursin("task",u)
-#             #println(u," ",parse(Int64,split(u,'_')[2])-timestamp) #tester
-#             if timestamp - parse(Int64,split(u,'_')[2]) >3600000
-#                 rm(u, recursive=true)
-#             end
-#         end
-#     end
-# end
+    println("---")
+    println(classeur_utilisateur)#/Users/jean-pierreflandrois/Documents/PKDBGENIESTIPPLE/public/utilisateurs/task_20241013_220057_lfXiwPpZ/
+    originaldir=pwd()
+    println(originaldir)
+
+    cd(classeur_utilisateur)
+
+    
+    println(pwd())
+    utilisateur=splitdir(classeur_utilisateur)[2]*".tar.zip"
+    latelier=replace(splitdir(classeur_utilisateur)[2],"task_" => "atelier_")
+    println(utilisateur, "  <- tar va faire <-  ",latelier)
+    try 
+        cmd=`tar -zcvf  $utilisateur $latelier`
+        println(cmd)
+        run(pipeline(cmd,stdout=devnull,stderr=devnull))#,stdout="dev/null",stderr="dev/null"))
+        
+    catch
+        println(" ERREUR   targz ",latelier,"   ")
+        
+    end
+
+    cd(originaldir)
+    println("retour...",pwd())
+    return utilisateur
+
+end
 
 # Function to define custom CSS styles taken from https://github.com/BuiltWithGenie/GenieTodo/blob/main/genietodo.jl
 function custom_styles()
@@ -341,37 +384,78 @@ function ui()  #btn("valider",color="red",@click("press_btn = true")), # @onbutt
             [[h6("Options")],
             checkbox("Statistics ", :selectionO, val = "statseules", color = "grey"),
             checkbox("Extraction ", :selectionO, val = "extraction", color = "grey"),
-        ], sm=4),
+        ], sm=3),
         column(class="q-pa-sm",
             [[h6("Sets of proteins")],
-            checkbox("Universal proteins", :selectionP, val = "universaux", color = "grey"),
-            checkbox("Bacteria specific", :selectionP, val = "bactprot", color = "grey"),
-            checkbox("Archaea specific", :selectionP, val = "archprot", color = "grey"),
-            checkbox("rDNA 16S/23S/5S", :selectionP, val = "rdna", color = "grey"),
-        ], sm=4),
+            checkbox("Universal ribosomal proteins", :selectionP, val = "universaux", color = "grey"),
+            checkbox("Bacterial specific proteins", :selectionP, val = "bactprot", color = "grey"),
+            checkbox("Archaeal specific proteins", :selectionP, val = "archprot", color = "grey"),
+        ], sm=3),
         column(class="q-pa-sm",
-            [[h6("Quality of the genomes (3 choices max)")],
+            [[h6("rDNA")],
+            checkbox("rDNA 16S/23S/5S", :selectionN, val = "rdna", color = "grey"),
+        ], sm=3),
+        column(class="q-pa-sm",
+            [[h6("Quality of the genomes")],
             checkbox("Representative genomes", :selectionQ, val = "representatifs", color = "grey"),
             checkbox("Type-Strain genomes", :selectionQ, val = "souchestype", color = "grey"),
             checkbox("Genomes tagged as complete", :selectionQ, val = "complet", color = "grey"),
             checkbox("Genomes in Ensembl!", :selectionQ, val = "ensembl", color = "grey"),
-            ], sm=4),
+            ], sm=3),
         ]) 
-
+    row([
+        column(class="q-pa-sm",[
+            expansionitem(
+                label = "Help",
+                dense = true,
+                var"dense-toggle" = true,
+                var"expand-separator" = true,
+                var"header-class" = "grey",
+                p(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
+                ),
+            ),
+        ], sm=3),
+        column(class="q-pa-sm",[
+            expansionitem(
+                label = "Help",
+                dense = true,
+                var"dense-toggle" = true,
+                var"expand-separator" = true,
+                var"header-class" = "grey",
+                p(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
+                ),
+            ),
+        ], sm=3),
+        column(class="q-pa-sm",[
+            expansionitem(
+                label = "Help",
+                dense = true,
+                var"dense-toggle" = true,
+                var"expand-separator" = true,
+                var"header-class" = "grey",
+                p(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
+                ),
+            ),
+        ], sm=3),
+        column(class="q-pa-sm",[
+            expansionitem(
+                label = "Help",
+                dense = true,
+                var"dense-toggle" = true,
+                var"expand-separator" = true,
+                var"header-class" = "grey",
+                p(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
+                ),
+            ),
+        ], sm=3),
+    ])
     cell([separator(color = "primary")])
     p(h5("Queries")) 
-    # [
-    #     expansionitem(
-    #         label = "Help",
-    #         dense = true,
-    #         var"dense-toggle" = true,
-    #         var"expand-separator" = true,
-    #         var"header-class" = "bg-blue-1",
-    #         p(
-    #             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
-    #         ),
-    #     ),
-    # ]
+
     cell([textfield(
         "max 5 queries separated by a white-space",
         :S,
@@ -393,13 +477,23 @@ function ui()  #btn("valider",color="red",@click("press_btn = true")), # @onbutt
     )
     ])
     cell([])
-    
-    cell([btn("Submit", @click(:trigger),loading =:travail,color = "secondary")],[btn("Clear", @click(:clearit)),toggle("exemple use", :testing),])
+  
+    cell([btn("Submit", @click(:trigger),loading =:travail,color = "secondary")],[btn("Clear", @click(:clearit))],[toggle("exemple use", :testing)
+        ])
+
+    Html.div(cell([bignumber("remaining to treat",:NP)]), @showif("vuebig"))
     cell([separator(color = "primary")]) 
     cell(["Process info: {{termine}}"])
-        Html.div(cell([h5("Statistics"),table(:ddff, paginationsync = :ddff_pagination, flat = true, bordered = true, title = "riboDB content for this query:")]), @showif("encours"))
-    ]
+    Html.div(cell([h5("Statistics"),table(:ddff, paginationsync = :ddff_pagination, flat = true, bordered = true, title = "riboDB content for this query:")]), @showif("encours"))
+    cell([separator(color = "primary")])
 
+    Html.div(
+        row([cell([ btn(class="q-ml-lg","Download",icon="download", @on(:click, :download_event))])
+        cell(["Download Info: {{downloadinfo}}"]) ]),@showif("montre_moi_tirer"))
+    ]
+    
+    
+# bignumber("remining to treat",:NP)
 
 end
 
