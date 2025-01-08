@@ -189,7 +189,8 @@ using DataFrames
             optionsx=replace(replace(join(selectionO), "extraction" => "F1", "statseules" => "CNT"), "F1CNT" => "F1")
             genomesafaire=replace(replace(join(selectionQ,','),"representatifs" => "#R", "souchestype" => "#T", "ensembl" => "#E", "complet" => "#C"), "#R,#T" => "#R#T")           
             #println(Spresentable,genomesafaire,postdsk)
-            host = "0.0.0.0"  # Localhost or the actual IP of the server listen(IPv4("0.0.0.0"), 8080)
+            host = string(getaddrinfo("tcpribo", IPv4))  # Resolves "tcpribo" to its IPv4 address
+            #host = "0.0.0.0"  # Localhost or the actual IP of the server listen(IPv4("0.0.0.0"), 8080)
             port = 8080       # Ensure this matches the server's port
             vecteurfamillescherchées::Vector{String}=[]
             vecteurprotuniques::Vector{String}=[]
@@ -515,3 +516,11 @@ end
 #     page(model, ui) |> html
 # end
 
+"""
+
+docker build -t genieribodb . 
+
+NB /Users/jean-pierreflandrois/ a changer pour les chemins locaux
+
+le reste voir dans TCP ribodb_server
+"""
