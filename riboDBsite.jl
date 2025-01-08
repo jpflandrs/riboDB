@@ -127,11 +127,14 @@ using DataFrames
 
     @onbutton trigger begin
         travail = true
-        println("$selectionO  $selectionP  $selectionQ")
+        #println("$selectionO  $selectionP  $selectionQ")
         if selectionO == [] && selectionP== [] && selectionN== []
             ticketvalide=false
             S = " MISSING options or proteins selection"
             termine = "Global Parameters incomplete, please precise your selection"
+        end
+        if selectionO == []
+            selectionO=["extraction"]
         end
         #nettoyer par principe
         ddff = DataTable(DataFrame(Family=String["no data"],Uniques=String["no data"],Multiples=String["no data"]))
@@ -148,16 +151,16 @@ using DataFrames
             S = "MISSING QUERY ! "
             ticketvalide=false
         else
-            println(S)
+            #println(S)
             instructionS=""
             Ssplit=split(strip(S)," ")
-            println(Ssplit)
+            #println(Ssplit)
             if length(Ssplit) >5
                 termine ="NO MORE THAN 5 ITEMS"
                 S="Is that right ? "*join(Ssplit[1:5]," ")
                 ticketvalide=false
             end
-            println("A $ticketvalide")
+            #println("A $ticketvalide")
             for u in split(strip(S)," ")
                 if length(u) < 4 
                     termine ="each query item must be longer than 5"
@@ -167,9 +170,9 @@ using DataFrames
                     instructionS=instructionS*" "*u
                 end
             end
-            println("B $ticketvalide")
+            #println("B $ticketvalide")
             Spresentable=join(split(strip(instructionS)," "),',')
-            println("présentable $Spresentable")
+            #println("présentable $Spresentable")
             #ddff_pagination = DataTablePagination(rows_per_page = 5)
             # if paramètres == false
             #     termine = "Please choose and valid the parameters"
@@ -178,14 +181,14 @@ using DataFrames
         
         if ticketvalide #on peut y aller
             postdsk=uniqueutilisateursimplifié()
-            println(postdsk)
+            #println(postdsk)
             mesfamilles=selecteurfamilles(union(selectionP,selectionN)) #on ajoute les RNA (selectionN)
             #println("mes familles: $mesfamilles")
             prévisionsfamilles=length(mesfamilles)
             NP=string(prévisionsfamilles)
             optionsx=replace(replace(join(selectionO), "extraction" => "F1", "statseules" => "CNT"), "F1CNT" => "F1")
             genomesafaire=replace(replace(join(selectionQ,','),"representatifs" => "#R", "souchestype" => "#T", "ensembl" => "#E", "complet" => "#C"), "#R,#T" => "#R#T")           
-            println(Spresentable,genomesafaire,postdsk)
+            #println(Spresentable,genomesafaire,postdsk)
             host = "0.0.0.0"  # Localhost or the actual IP of the server listen(IPv4("0.0.0.0"), 8080)
             port = 8080       # Ensure this matches the server's port
             vecteurfamillescherchées::Vector{String}=[]
@@ -208,10 +211,10 @@ using DataFrames
                 vuebig =true
                 for funit in mesfamilles
                     message=join([optionsx,funit,Spresentable,genomesafaire,postdsk*"\n"],";") 
-                    println(message)
+                    #println(message)
                     write(sock, message)
                     response = readline(sock)  # Reads one line from the server
-                    println("réponse $response") #/Users/jean-pierreflandrois/Documents/GitHub/TCPriboDB/public/utilisateurs/task_1736200658296_D3ZawUy6/atelier_1736200658296_D3ZawUy6;ul1;18;0
+                    #println("réponse $response") #/Users/jean-pierreflandrois/Documents/GitHub/TCPriboDB/public/utilisateurs/task_1736200658296_D3ZawUy6/atelier_1736200658296_D3ZawUy6;ul1;18;0
                     responsevect::Vector{String}=[String(i) for i in split(response,';')]
                     push!(vecteurfamillescherchées, responsevect[2])
                     push!(vecteurprotuniques, responsevect[3])
@@ -222,7 +225,7 @@ using DataFrames
                     else 
                         push!(vecteurprotmultiples, "not available")
                     end
-                    println(compteurseq) #["/Users/jean-pierreflandrois/Documents/GitHub/TCPriboDB/public/utilisateurs/task_1736200658296_D3ZawUy6/atelier_1736200658296_D3ZawUy6", "ul22", "18", "0"
+                    #println(compteurseq) #["/Users/jean-pierreflandrois/Documents/GitHub/TCPriboDB/public/utilisateurs/task_1736200658296_D3ZawUy6/atelier_1736200658296_D3ZawUy6", "ul22", "18", "0"
                     
                     ddff = DataTable(DataFrame(Family=vecteurfamillescherchées,Uniques=vecteurprotuniques,Multiples=vecteurprotmultiples))
                     if funit == mesfamilles[end]
@@ -263,14 +266,14 @@ using DataFrames
     @event download_event begin
         downloadinfo = "running..." 
         #println("downloda process")
-        println(posdsk)
+        #println(posdsk)
         pourgzip=compresser(splitdir(posdsk)[1]) #compresser atelier sous le nom de l'utilisateur
-        println("=====")
+        #println("=====")
         #println(pourgzip)
         downloadinfo = pourgzip
         try
             solution = joinpath(splitdir(posdsk)[1],pourgzip)
-            println("downloading...",joinpath(splitdir(posdsk)[1],pourgzip))
+            #println("downloading...",joinpath(splitdir(posdsk)[1],pourgzip))
             io = IOBuffer()
             open(solution, "r") do file 
                 write(io, read(file))
@@ -303,7 +306,7 @@ function uniqueutilisateursimplifié()
 end
 
 function selecteurfamilles(nomsets) # bactprot archprot universaux
-    println(typeof(nomsets))
+    #println(typeof(nomsets))
     familia=Dict("rdna" => ["16SrDNA", "23SrDNA", "5SrDNA"], "universaux"  => ["ul1", "ul10", "ul11", "ul13", "ul14", "ul15", "ul16", "ul18", "ul2", "ul22", "ul23", "ul24", "ul29", "ul3", "ul30", "ul4", "ul5", "ul6", "us10", "us11", "us12", "us13", "us14", "us15", "us17", "us19", "us2", "us3", "us4", "us5", "us7", "us8", "us9"],
 "bactprot"=>["bTHX", "bl12", "bl17", "bl19", "bl20", "bl21", "bl25", "bl27", "bl28", "bl31", "bl32", "bl33", "bl34", "bl35", "bl36", "bl9", "bs16", "bs18", "bs20", "bs21", "bs6", "cs23"],
 "archprot"=>["al45", "al46", "al47", "el13", "el14", "el15", "el18", "el19", "el20", "el21", "el24", "el30", "el31", "el32", "el33", "el34", "el37", "el38", "el39", "el40", "el41", "el42", "el43", "el8", "es1", "es17", "es19", "es24", "es25", "es26", "es27", "es28", "es30", "es31", "es4", "es6", "es8", "p1p2"])
@@ -318,18 +321,18 @@ end
 function compresser(classeur_utilisateur) #intermédiaire de zippp (oui 3 p) pour travailler dans le directory utilisateur 
     #pwd(),"public","utilisateurs","task_$(timestamp)_$(random_string)"
     
-    println("---")
+    #println("---")
     println(classeur_utilisateur)#/Users/jean-pierreflandrois/Documents/PKDBGENIESTIPPLE/public/utilisateurs/task_20241013_220057_lfXiwPpZ/
     originaldir=pwd()
-    println(originaldir)
+    #println(originaldir)
 
     cd(classeur_utilisateur)
 
     
-    println(pwd())
+    #println(pwd())
     utilisateur=splitdir(classeur_utilisateur)[2]*".tar.zip"
     latelier=replace(splitdir(classeur_utilisateur)[2],"task_" => "atelier_")
-    println(utilisateur, "  <- tar va faire <-  ",latelier)
+    #println(utilisateur, "  <- tar va faire <-  ",latelier)
     try 
         cmd=`tar -zcvf  $utilisateur $latelier`
         println(cmd)
@@ -341,7 +344,7 @@ function compresser(classeur_utilisateur) #intermédiaire de zippp (oui 3 p) pou
     end
 
     cd(originaldir)
-    println("retour...",pwd())
+    #println("retour...",pwd())
     return utilisateur
 
 end
