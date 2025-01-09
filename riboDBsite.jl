@@ -506,7 +506,7 @@ function ui()  #btn("valider",color="red",@click("press_btn = true")), # @onbutt
 
 end
 
-@page("/ribodbreactive", ui)
+@page("/miningribodb", ui)
 
 end
 
