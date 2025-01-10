@@ -12,6 +12,7 @@ Using the new website is less difficult and more safe, most choices are obvious.
 From a query we will try to extract the ribosomal proteins and/or if needed the SSUrDNA.
 
 #### Choosing the proteins families
+R-prots are named according to BAN, Nenad, BECKMANN, Roland, CATE, Jamie HD, et al. A new system for naming ribosomal proteins. Current opinion in structural biology, 2014, vol. 24, p. 165-169 **[Ban Lab website](https://bangroup.ethz.ch/research/nomenclature-of-ribosomal-proteins.html)**
 
 The families are 
 ``["bTHX", "bl12", "bl17", "bl19", "bl20", "bl21", "bl25", "bl27", "bl28", "bl31", "bl32", "bl33", "bl34", "bl35", "bl36", "bl9", "bs16", "bs18", "bs20", "bs21", "bs6", "cs23", "ul1", "ul10", "ul11", "ul13", "ul14", "ul15", "ul16", "ul18", "ul2", "ul22", "ul23", "ul24", "ul29", "ul3", "ul30", "ul4", "ul5", "ul6", "us10", "us11", "us12", "us13", "us14", "us15", "us17", "us19", "us2", "us3", "us4", "us5", "us7", "us8", "us9", "al45", "al46", "al47", "el13", "el14", "el15", "el18", "el19", "el20", "el21", "el24", "el30", "el31", "el32", "el33", "el34", "el37", "el38", "el39", "el40", "el41", "el42", "el43", "el8", "es1", "es17", "es19", "es24", "es25", "es26", "es27", "es28", "es30", "es31", "es4", "es6", "es8", "p1p2"]``
@@ -93,6 +94,23 @@ With :
 In fact the results are similar, except that extraction not being done, upload will give nothing.
 This function will be improoved.
 
+## What is behind ?
+
+### the riboDB database
+RiboDB currently contains nucleic and protein sequences of ribosomal proteins from 196,228 genomes (Bacteria (183,167) and Archaea (13,061). The aim of this work is facilitate the use of ribosomal proteins in phylogeny.
+
+RiboDB currently contains the rDNA if available in the genomes. As concern 16SrDNA, it contains 138,286 genomes of Bacteria and 4,779 of Archaea representing 22,781 species names.
+In the common case of multiples operons only one rDNA is retained on the basis of its centrality
+
+For Bacteria the source of the genomes is NCBI RefSeq, except for genomes bearing a "species" level not found in RefSeq. For Archaea we select all the genomes available in NCBI RefSeq and GenBank.
+
+Building the DB is done by using our own HMM set. The candidate proteins are then submitted to a quality-control by using a MMSEQS clustering that include reference sequences manually selected. Sequences from a cluster where references are also found are validated. The sequences occuring twice or more in a genome are separated in the "multiples" category. 
+
+### The TCP server
+From riboDB the data are re-organized in Julia dictionaries that are used by a TCP server written in Julia to answer to the queries. The process is described in its GitHub at **[TCPriboDB](https://github.com/jpflandrs/TCPriboDB)**
+
+### This website
+It is, like _TCPriboDB_ written in Julia and it uses the **[GenieFramework](https://genieframework.com)**.
 
 ## License
 
