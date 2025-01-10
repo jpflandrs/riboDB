@@ -110,43 +110,73 @@ Building the DB is done by using our own HMM set. The candidate proteins are the
 From riboDB the data are re-organized in Julia dictionaries that are used by a TCP server written in Julia to answer to the queries. The process is described in its GitHub at **[TCPriboDB](https://github.com/jpflandrs/TCPriboDB)**
 
 ### This website
-It is, like _TCPriboDB_ written in Julia and it uses the **[GenieFramework](https://genieframework.com)**.
+It is, like _TCPriboDB_ written in Julia using the **[GenieFramework](https://genieframework.com)**.
+
+### TCP-server communication
+Both entities are in theyr own Docker and communicate using a Docker network. The server is behind a NGINX server to communicate outside.
+Here is the NGINX description file in /sites-available
+
+    server {
+    listen 8008;
+    listen [::]:8008;
+
+    server_name   134.214.35.110;
+    root          /;
+    index         welcome.html;
+
+    location / {
+        proxy_http_version 1.1;
+        proxy_pass http://localhost:8008;
+        #websocket specific settings
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+    }
+    }
+
+Note for the Docker run instructions:
+The directory PKXPLORE is here shared with **[PkXplore]("https://github.com/jpflandrs/PkXplore")** to hold the clients files and the logs. It must exist (or another directory with a "public" subdirectory, and also riboDB/log inside (see instructions))
+
+    docker run --name ribodb --network ribodbnetwork -it -p 8008:8008 \
+    --mount type=bind,src=/path_to/PKXPLORE/public,target=/home/genie/app/public \
+    --mount type=bind,src=/path_to/PKXPLORE/riboDB/log,target=/home/genie/app/log \
+    ribodb_dockerid
+
+This is launched from a screen session. 
 
 ## License
 
-"""
-ribodb_server.jl Le serveur TCP de riboDB
+    ribodb_server.jl le site riboDB
 
-Copyright or © or Copr. UCBL Lyon, France;  
-contributor : [Jean-Pierre Flandrois] ([2024/12/20])
-[JP.flandrois@univ-lyon1.fr]
+    Copyright or © or Copr. UCBL Lyon, France;  
+    contributor : [Jean-Pierre Flandrois] ([2024/12/20])
+    [JP.flandrois@univ-lyon1.fr]
 
-This software is a computer program whose purpose is to create a TCP server interface to the riboDB sequence database.
+    This software is a computer program whose purpose is to create the riboDB sequence database site.
 
-This software is governed by the [CeCILL|CeCILL-B|CeCILL-C] license under French law and
-abiding by the rules of distribution of free software.  You can  use, 
-modify and/ or redistribute the software under the terms of the [CeCILL|CeCILL-B|CeCILL-C]
-license as circulated by CEA, CNRS and INRIA at the following URL
-"http://www.cecill.info". 
+    This software is governed by the [CeCILL|CeCILL-B|CeCILL-C] license under French law and
+    abiding by the rules of distribution of free software.  You can  use, 
+    modify and/ or redistribute the software under the terms of the [CeCILL|CeCILL-B|CeCILL-C]
+    license as circulated by CEA, CNRS and INRIA at the following URL
+    "http://www.cecill.info". 
 
-As a counterpart to the access to the source code and  rights to copy,
-modify and redistribute granted by the license, users are provided only
-with a limited warranty  and the software's author,  the holder of the
-economic rights,  and the successive licensors  have only  limited
-liability. 
+    As a counterpart to the access to the source code and  rights to copy,
+    modify and redistribute granted by the license, users are provided only
+    with a limited warranty  and the software's author,  the holder of the
+    economic rights,  and the successive licensors  have only  limited
+    liability. 
 
-In this respect, the user's attention is drawn to the risks associated
-with loading,  using,  modifying and/or developing or reproducing the
-software by the user in light of its specific status of free software,
-that may mean  that it is complicated to manipulate,  and  that  also
-therefore means  that it is reserved for developers  and  experienced
-professionals having in-depth computer knowledge. Users are therefore
-encouraged to load and test the software's suitability as regards their
-requirements in conditions enabling the security of their systems and/or 
-data to be ensured and,  more generally, to use and operate it in the 
-same conditions as regards security. 
+    In this respect, the user's attention is drawn to the risks associated
+    with loading,  using,  modifying and/or developing or reproducing the
+    software by the user in light of its specific status of free software,
+    that may mean  that it is complicated to manipulate,  and  that  also
+    therefore means  that it is reserved for developers  and  experienced
+    professionals having in-depth computer knowledge. Users are therefore
+    encouraged to load and test the software's suitability as regards their
+    requirements in conditions enabling the security of their systems and/or 
+    data to be ensured and,  more generally, to use and operate it in the 
+    same conditions as regards security. 
 
-The fact that you are presently reading this means that you have had
-knowledge of the [CeCILL|CeCILL-B|CeCILL-C] license and that you accept its terms.
+    The fact that you are presently reading this means that you have had
+    knowledge of the [CeCILL|CeCILL-B|CeCILL-C] license and that you accept its terms.
 
-"""
