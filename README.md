@@ -71,6 +71,8 @@ Inside each sub-directory (say ``us10``) there are 4 files
 ##### uniques vs multiples
 The explaination is straightforward: when only one protein is found in a genome, it is classified as "unique" and if more than one is is put in the "multiples" category. Multiples may be paralogues, duplicated etc. No check is done.
 
+##### the special case of rDNA
+each family sub-directory has only one files (``...nuc_uniques.fasta``) because only one rDNA from the possible multiples operons is retained on the basis of its centrality. The "unique" class is then not informative of the number of sequences in the genome. This is due to the fact that this database has been developped for the **[PkXplore web-site](https://pkxplore.univ-lyon1.fr/nucworkshop) and available here for information.
 ##### the riboDB fasta
 
 Typically:
