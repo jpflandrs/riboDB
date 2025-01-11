@@ -3,9 +3,11 @@
 This site is a new version of the previous site "*RiboDB : a prokaryotic ribosomal components DataBase*" hosted at the same URL.
 The previous version was written in Python3 and uses CGI. But the CGI module is "*deprecated since version 3.11, removed in version 3.13*" so the need to refresh the site.
 
-Using the new website is less difficult and more safe, most choices are obvious.
+Using the new website is less difficult and more safe, most choices are obvious. 
 
-## Extraction or statistic 
+The riboDB DB (nov 2024) contains data from 254,984 genomes (2262 _Archaea_, 252,722 _Bacteria) and 15,282,163 sequences corresponding to 23,858 species of _Bacteria_ and 938 of _Archaea_. 
+
+## Extraction or statistic
 
 ### Extraction
 
@@ -99,14 +101,14 @@ This function will be improoved.
 ## What is behind ?
 
 ### the riboDB database
-RiboDB currently contains nucleic and protein sequences of ribosomal proteins from 196,228 genomes (Bacteria (183,167) and Archaea (13,061). The aim of this work is facilitate the use of ribosomal proteins in phylogeny.
 
-RiboDB currently contains the rDNA if available in the genomes. As concern 16SrDNA, it contains 138,286 genomes of Bacteria and 4,779 of Archaea representing 22,781 species names.
-In the common case of multiples operons only one rDNA is retained on the basis of its centrality
+RiboDB is built two time a year. It contains the ribosomal proteins of Archaea and Bacteria.
 
 For Bacteria the source of the genomes is NCBI RefSeq, except for genomes bearing a "species" level not found in RefSeq. For Archaea we select all the genomes available in NCBI RefSeq and GenBank.
 
-Building the DB is done by using our own HMM set. The candidate proteins are then submitted to a quality-control by using a MMSEQS clustering that include reference sequences manually selected. Sequences from a cluster where references are also found are validated. The sequences occuring twice or more in a genome are separated in the "multiples" category. 
+From the [initial approach](https://academic.oup.com/mbe/article/33/8/2170/2579323), there has been evolutions to manage the heavy increase of available genomes. Building the DB is done by using our own HMM set. The candidate proteins are then submitted to a quality-control by using a MMSEQS clustering that include reference sequences manually selected. Sequences from a cluster where references are also found are validated. The sequences occuring twice or more in a genome are separated in the "multiples" category.
+
+RiboDB currently contains also the rDNA if available in the genomes. In the common case of multiples operons only one rDNA is retained on the basis of its centrality.
 
 ### The TCP server
 From riboDB the data are re-organized in Julia dictionaries that are used by a TCP server written in Julia to answer to the queries. The process is described in its GitHub at **[TCPriboDB](https://github.com/jpflandrs/TCPriboDB)**
@@ -148,7 +150,7 @@ This is launched from a screen session.
 
 ## License
 
-    ribodb_server.jl le site riboDB
+    riboDBsite.jl le site riboDB
 
     Copyright or © or Copr. UCBL Lyon, France;  
     contributor : [Jean-Pierre Flandrois] ([2024/12/20])
@@ -181,4 +183,5 @@ This is launched from a screen session.
 
     The fact that you are presently reading this means that you have had
     knowledge of the [CeCILL|CeCILL-B|CeCILL-C] license and that you accept its terms.
+
 
