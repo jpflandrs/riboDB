@@ -72,24 +72,24 @@ Inside each sub-directory (say ``us10``) there are 4 files
 The explaination is straightforward: when only one protein is found in a genome, it is classified as "unique" and if more than one is is put in the "multiples" category. Multiples may be paralogues, duplicated etc. No check is done.
 
 ##### the special case of rDNA
-each family sub-directory has only one files (``...nuc_uniques.fasta``) because only one rDNA from the possible multiples operons is retained on the basis of its centrality. The "unique" class is then not informative of the number of sequences in the genome. This is due to the fact that this database has been developped for the **[PkXplore web-site](https://pkxplore.univ-lyon1.fr/nucworkshop) and available here for information.
+each family sub-directory has only one files (``...nuc_uniques.fasta``) because only one rDNA from the possible multiples operons is retained on the basis of its centrality. The "unique" class is then not informative of the number of sequences in the genome. This is due to the fact that this database has been developped for the **[PkXplore web-site](https://pkxplore.univ-lyon1.fr/nucworkshop)** and available here for information.
 ##### the riboDB fasta
 
 Typically:
+``BEGIN COMMENTARY \n SEQUENCE`` ``BEGIN``is ``>``
 ``>Escherichia_coli|K_12substr.MG1655#R#E#C~GCF_000005845.2~NC_000913.3~C[3452959..3453270]~562~11=Bacteria-Pseudomonadota-Gammaproteobacteria-Enterobacterales-Enterobacteriaceae-Escherichia
 MQNQRIRIRLKAFDHRLIDQATAEIVETAKRTGAQVRGPIPLPTRKERFTVLISPHVNKDARDQYEIRTHLRLVDIVEPTEKTVDALMRLDLAAGVDVQISLG``
-With :
+Here within the COMMENTARY line:
 
-1) ``Escherichia_coli`` : Species name (Genus_species[_subspecies])
+1) ``Escherichia_coli`` : Species name (``Genus_species`` [``_subsp._subspecies`` or ``_pv._pathovar`` or ``_bv._biovar``])
 2) ``K_12substr.MG1655`` : Strain identifyer (collection...)
 3) ``R#E#C``: #quality#quality... the declared quality of the genomes are R (reference/representative), T (type-strain), E (in Ensembl!), C (complete genome) S (Scaffold) U (not declared or low quality)
 4) ``GCF_000005845.2`` : NCBI unique Id for the genome
-5) ``NC_000913.3`` : Locus and version or contig Id.
-6) ``C[3452959..3453270]``: Position in the genome (or contig, C means complementary)
+5) ``NC_000913.3`` : Locus and version or contig Id and version.
+6) ``C[3452959..3453270]``: Position in the genome (or in contig, C means complementary)
 7) ``562``: NCBI taxId
 8) ``11`` :genetic code
-9) ``Bacteria-Pseudomonadota-Gammaproteobacteria-Enterobacterales-Enterobacteriaceae-Escherichia``: Lineage_report = Domain-Phylum-Class-Order-Family-Genus
-10) And of course the sequence...
+9) ``Bacteria-Pseudomonadota-Gammaproteobacteria-Enterobacterales-Enterobacteriaceae-Escherichia``: Lineage_report (simplified) = Domain-Phylum-Class-Order-Family-Genus
 
 ### Statistics
 
