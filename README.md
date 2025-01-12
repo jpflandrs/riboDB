@@ -5,7 +5,7 @@ The previous version was written in Python3 and uses CGI. But the CGI module is 
 
 Using the new website is less difficult and more safe, most choices are obvious. 
 
-The riboDB DB (nov 2024) contains data from 254,984 genomes (2262 _Archaea_, 252,722 _Bacteria) and 15,282,163 sequences corresponding to 23,858 species of _Bacteria_ and 938 of _Archaea_. 
+The riboDB DB (nov 2024) contains data from 254,984 genomes (2262 _Archaea_, 252,722 _Bacteria_) and 15,282,163 sequences corresponding to 23,858 species of _Bacteria_ and 938 of _Archaea_. 
 
 ## Extraction or statistic
 
@@ -55,8 +55,7 @@ The query is possible with or within:
 3) NCBI TaxId like ``51203``
 4) Fragments of the nomenclature hierarchy : ``Archaea-Euryarchaeota-Methanomicrobia-Methanosarcinales-Methanosarcinaceae-Methanohalophilus``
 And ``Methanosarcinales`` is a valid option, but ``Methano`` is also valid.
-
-See the "Exemple use" in cas of doubt.
+Note that some research **must** include "-" : ``Burkholderia`` will also return ``Burkholderiaceae``, the solution is to  add the separator: ``Burkholderia-``.
 
 #### Submit 
 The process being launched, the number of remaining family to treat is shown and the table is populating (you can expand it to more than 5 during the extraction). 
