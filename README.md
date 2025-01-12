@@ -14,7 +14,7 @@ The riboDB DB (nov 2024) contains data from 254,984 genomes (2262 _Archaea_, 252
 From a query we will try to extract the ribosomal proteins and/or if needed the SSUrDNA.
 
 #### Choosing the proteins families
-R-prots are named according to BAN, Nenad, BECKMANN, Roland, CATE, Jamie HD, et al. A new system for naming ribosomal proteins. Current opinion in structural biology, 2014, vol. 24, p. 165-169 **[Ban Lab website](https://bangroup.ethz.ch/research/nomenclature-of-ribosomal-proteins.html)**
+R-prots are named according to BAN, BECKMANN, CATE _et al._ A new system for naming ribosomal proteins. Current opinion in structural biology, 2014, vol. 24, p. 165-169 **[Ban Lab website](https://bangroup.ethz.ch/research/nomenclature-of-ribosomal-proteins.html)**
 
 The families are 
 ``["bTHX", "bl12", "bl17", "bl19", "bl20", "bl21", "bl25", "bl27", "bl28", "bl31", "bl32", "bl33", "bl34", "bl35", "bl36", "bl9", "bs16", "bs18", "bs20", "bs21", "bs6", "cs23", "ul1", "ul10", "ul11", "ul13", "ul14", "ul15", "ul16", "ul18", "ul2", "ul22", "ul23", "ul24", "ul29", "ul3", "ul30", "ul4", "ul5", "ul6", "us10", "us11", "us12", "us13", "us14", "us15", "us17", "us19", "us2", "us3", "us4", "us5", "us7", "us8", "us9", "al45", "al46", "al47", "el13", "el14", "el15", "el18", "el19", "el20", "el21", "el24", "el30", "el31", "el32", "el33", "el34", "el37", "el38", "el39", "el40", "el41", "el42", "el43", "el8", "es1", "es17", "es19", "es24", "es25", "es26", "es27", "es28", "es30", "es31", "es4", "es6", "es8", "p1p2"]``
@@ -28,7 +28,7 @@ _Bacteria_ may have "*Bacterial Specific*" families
 and _Archaea_ have "*Archaeal Specific*" families
 ``["al45", "al46", "al47", "el13", "el14", "el15", "el18", "el19", "el20", "el21", "el24", "el30", "el31", "el32", "el33", "el34", "el37", "el38", "el39", "el40", "el41", "el42", "el43", "el8", "es1", "es17", "es19", "es24", "es25", "es26", "es27", "es28", "es30", "es31", "es4", "es6", "es8", "p1p2"]``
 
-If you are looking for Bacteria only you need to select "*Universal*" and "*Bacterial Specific*" and if Archaea, "*Universal*" and "*Archaeal Specific*" families.
+If you are looking for Bacteria only, you need to select "*Universal*" and "*Bacterial Specific*" and if Archaea, "*Universal*" and "*Archaeal Specific*" families.
 
 #### Selecting SSUrDNA (16S, 23S, 5S)
 
