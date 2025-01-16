@@ -193,8 +193,8 @@ using DataFrames
             genomesafaire=replace(replace(join(selectionQ,','),"representatifs" => "#R", "souchestype" => "#T", "ensembl" => "#E", "complet" => "#C"), "#R,#T" => "#R#T") 
             if optionsx == "F1CNT"
                 termine ="Extraction AND Statistics, doing only Extraction"
-                optionsx =="CNT"
-                S="You must choose either Extraction or Statistics, doing Statistics, redo with Extraction only if needed"
+                optionsx = "CNT"
+                S="You must choose either Extraction OR Statistics: doing Statistics now, redo with Extraction only if needed"
 
             elseif optionsx =="CNT" # statistiques
                 termine = "riboDB content statistics for $S "
