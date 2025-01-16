@@ -2,14 +2,15 @@ module ReactiveForm
 using GenieFramework
 using Stipple
 using StippleDownloads
-using DataFrames
 using Sockets
 using Dates
 using Random
 using Serialization
 using CSV
 using DataFrames
+# include("Module_fonctions_recherche.jl")
 
+# using .Module_fonctions_recherche
 @genietools
 
 @app begin
@@ -176,85 +177,213 @@ using DataFrames
             #ddff_pagination = DataTablePagination(rows_per_page = 5)
             # if paramètres == false
             #     termine = "Please choose and valid the parameters"
-            termine = "Sending $S to the riboDB TCP-server"
+            
         end
-        
+            
         if ticketvalide #on peut y aller
-            postdsk=uniqueutilisateursimplifié()
-            #println(postdsk)
+            
+            posdsk=uniqueutilisateur() #"/Users/jean-pierreflandrois/Documents/GitHub/riboDB/public/utilisateurs/task_1736975339312_bQRsWeWQ/atelier_1736975339312_bQRsWeWQ"
+            cheminutilisateursimplifié=split(posdsk,"atelier_")[2]#"1736975339312_bQRsWeWQ"
+            #DU COUP uniqueutilisateursimplifé pas nécessaire 
             mesfamilles=selecteurfamilles(union(selectionP,selectionN)) #on ajoute les RNA (selectionN)
             #println("mes familles: $mesfamilles")
             prévisionsfamilles=length(mesfamilles)
             NP=string(prévisionsfamilles)
-            optionsx=replace(replace(join(selectionO), "extraction" => "F1", "statseules" => "CNT"), "F1CNT" => "F1")
-            genomesafaire=replace(replace(join(selectionQ,','),"representatifs" => "#R", "souchestype" => "#T", "ensembl" => "#E", "complet" => "#C"), "#R,#T" => "#R#T")           
-            #println(Spresentable,genomesafaire,postdsk)
-            host = string(getaddrinfo("tcpribo", IPv4))  # Resolves "tcpribo" to its IPv4 address
-            #host = "0.0.0.0"  # Localhost or the actual IP of the server listen(IPv4("0.0.0.0"), 8080)
-            port = 8080       # Ensure this matches the server's port
-            vecteurfamillescherchées::Vector{String}=[]
-            vecteurprotuniques::Vector{String}=[]
-            vecteurprotmultiples::Vector{String}=[]
-            ddff = DataTable(DataFrame(Family=String["no data"],Uniques=String["no data"],Multiples=String["no data"]))
-            ddff_pagination = DataTablePagination(rows_per_page = 5)
-            funit::String=""
-            compteurseq=0
-            # Create a TCP connection to the server
-            try
-                sock = connect(host, port)
-                response = readline(sock)  # Reads one line from the server
-                termine= " Servers answer: $response"
-                #println("Connected to server at $host:$port \n")
+            optionsx=replace(join(selectionO), "extraction" => "F1", "statseules" => "CNT")
+            genomesafaire=replace(replace(join(selectionQ,','),"representatifs" => "#R", "souchestype" => "#T", "ensembl" => "#E", "complet" => "#C"), "#R,#T" => "#R#T") 
+            if optionsx == "F1CNT"
+                termine ="Extraction AND Statistics, doing only Extraction"
+                optionsx =="CNT"
+                S="You must choose either Extraction or Statistics, doing Statistics, redo with Extraction only if needed"
+
+            elseif optionsx =="CNT" # statistiques
+                termine = "riboDB content statistics for $S "
+                vecteurmotpartiel=[string(xsub) for xsub in split(Spresentable," ")]
+                vecteurgenomesafaire=[string(xsub) for xsub in split(genomesafaire," ")]
+                diderot=deserialize(joinpath("STATSRIBODB","ENCYCLOPRIBODB.ser"))
+                titres=["Genome","ul1", "ul10", "ul11", "ul13", "ul14", "ul15", "ul16", "ul18", "ul2", "ul22", "ul23", 
+                    "ul24", "ul29", "ul3", "ul30", "ul4", "ul5", "ul6", "us10", "us11", "us12", "us13", "us14", 
+                    "us15", "us17", "us19", "us2", "us3", "us4", "us5", "us7", "us8", "us9",
+                    "bl12", "bl17", "bl19", "bl20", "bl21", "bl25", "bl27", "bl28", "bl31", "bl32", 
+                    "bl33", "bl34", "bl35", "bl36", "bl9", "bs16", "bs18", "bs20", "bs21", "bs6", "cs23","bTHX",
+                    "al45", "al46", "al47", "el13", "el14", "el15", "el18", "el19", "el20", "el21", "el24", "el30",
+                    "el31", "el32", "el33", "el34", "el37", "el38", "el39", "el40", "el41", "el42", "el43", "el8", 
+                    "es1", "es17", "es19", "es24", "es25", "es26", "es27", "es28", "es30", "es31", "es4", "es6", "es8", "p1p2",
+                    "16SrDNA", "23SrDNA", "5SrDNA"]
+                ddff = DataTable(DataFrame(Genomes=String["no data"],Universal=String["no data"],Bacterial=String["no data"],Archaeal=String["no data"], rDNA=String["no data"]))
+                ddff_pagination = DataTablePagination(rows_per_page = 5)
+
                 encours = true
-                
-                # message="F1;$ti;$query;$qual;$diruseur\n" CNT;us9;Escherichia;#T,#R,#C,#E;1736194681541_ZABY1p6s;
-                cptfamilles::Int64=0
-                vuebig =true
-                for funit in mesfamilles
-                    message=join([optionsx,funit,Spresentable,genomesafaire,postdsk*"\n"],";") 
-                    #println(message)
-                    write(sock, message)
-                    response = readline(sock)  # Reads one line from the server
-                    #println("réponse $response") #/Users/jean-pierreflandrois/Documents/GitHub/TCPriboDB/public/utilisateurs/task_1736200658296_D3ZawUy6/atelier_1736200658296_D3ZawUy6;ul1;18;0
-                    responsevect::Vector{String}=[String(i) for i in split(response,';')]
-                    push!(vecteurfamillescherchées, responsevect[2])
-                    push!(vecteurprotuniques, responsevect[3])
-                    compteurseq += parse(Int64,responsevect[3])
-                    if funit  ∉["16SrDNA", "23SrDNA", "5SrDNA"]
-                        push!(vecteurprotmultiples, responsevect[4])
-                        compteurseq += parse(Int64,responsevect[4])
-                    else 
-                        push!(vecteurprotmultiples, "not available")
+
+                #selectionP["bactprot","universaux","archprot"]
+                #selectionN["rdna"]
+                #selection des critères de tri en fonction...
+                lestranchestoutes=[]
+                fonctionderecherche=fuzzil(vecteurmotpartiel,vecteurgenomesafaire)
+                #Spresentable   = les recherches dans l'annotation fasta MAIS avec des espaces
+                tablepoursite=[]
+                titrespersonnalisés=[]
+                #la table
+                genomesid::Vector{String}=[]
+                universal::Vector{String}=[]
+                bacterial::Vector{String}=[]
+                archaeal::Vector{String}=[]
+                riboDNA::Vector{String}=[]
+                #a populer !
+                for j in keys(diderot) #par les noms de génomes
+                    if fonctionderecherche(vecteurmotpartiel,vecteurgenomesafaire,j)
+                        #selection des colonnes 
+                        lestranches=[j]
+                        push!(genomesid,j)
+                        tablepersonnalisée=[j]
+                        comptefamillesuniv=0
+                        comptefamillesbact=0
+                        comptefamillesarch=0
+                        comptefamillesdrna=0
+                        if "universaux" in selectionP
+                            push!(lestranches,join([string(s) for s in diderot[j][1:33]]," ; "))
+                            push!(tablepersonnalisée,string(comptefamillesuniv+=sum(diderot[j][1:33])))
+                            push!(universal,string(comptefamillesuniv))
+                        else
+                            push!(universal,"-")
+                            push!(tablepersonnalisée,"-")
+                        end
+                        if "bactprot" in selectionP
+                            push!(lestranches,join([string(s) for s in diderot[j][34:55]]," ; "))
+                            push!(tablepersonnalisée,string(comptefamillesbact+=sum(diderot[j][34:55])))
+                            push!(bacterial,string(comptefamillesbact))
+                        else
+                            push!(bacterial,"-")
+                            push!(tablepersonnalisée,"-")
+                        end
+                        if "archprot" in selectionP
+                            push!(lestranches,join([string(s) for s in diderot[j][56:end-3]]," ; "))
+                            push!(tablepersonnalisée,string(comptefamillesarch+=sum(diderot[j][56:end-3])))
+                            push!(archaeal,string(comptefamillesarch))
+                        else
+                            push!(archaeal,"-")
+                            push!(tablepersonnalisée,"-")
+                        end
+                        if "rdna" in selectionN
+                            push!(lestranches,join([string(s) for s in diderot[j][end-2:end]]," ; "))
+                            push!(tablepersonnalisée,string(comptefamillesdrna+=sum(diderot[j][end-2:end])))
+                            push!(riboDNA,string(comptefamillesdrna))
+                        else
+                            push!(riboDNA,"-")
+                            push!(tablepersonnalisée,"-")
+                        end
+                        
+                        push!(lestranchestoutes,join(lestranches," ; "))
+                        push!(tablepoursite,join(tablepersonnalisée," ; "))
                     end
-                    #println(compteurseq) #["/Users/jean-pierreflandrois/Documents/GitHub/TCPriboDB/public/utilisateurs/task_1736200658296_D3ZawUy6/atelier_1736200658296_D3ZawUy6", "ul22", "18", "0"
-                    
-                    ddff = DataTable(DataFrame(Family=vecteurfamillescherchées,Uniques=vecteurprotuniques,Multiples=vecteurprotmultiples))
-                    if funit == mesfamilles[end]
-                        posdsk = responsevect[1]
-                    end
-                    cptfamilles+=1
-                    NP=string(prévisionsfamilles-cptfamilles)
+
                 end
-                vuebig =false
-                # Close the connection
-                close(sock)
-                termine = "  Process ended correctly"
-                closed=true
-            catch err
-                println("Error: ", err)
-                termine = "Error $err"
+                ddff = DataTable(DataFrame(Genomes=genomesid,Universal=universal,Bacterial=bacterial,Archaeal=archaeal,rDNA=riboDNA))
+                push!(titrespersonnalisés,titres[1])
+                if "universaux" in selectionP
+                    push!(titrespersonnalisés,join(titres[2:34]," ; "))
+                end
+                if "bactprot" in selectionP
+                    push!(titrespersonnalisés,join(titres[35:56]," ; "))
+                end
+                if "archprot" in selectionP
+                    push!(titrespersonnalisés,join(titres[57:end-3]," ; "))
+                end
+                if "rdna" in selectionN
+                    push!(titrespersonnalisés,join(titres[end-2:end]," ; "))
+                end
+                #on a la totalité
+                # println("\ntitre personnalisé \n",join(titrespersonnalisés," ; ")) #Vector[any]
+                # println("\nles tranches toutes \n",join(lestranchestoutes," \n"))
+                #println(join(tablepoursite," ; "))
+                titrecompte=["Genome","Universal","Bacterial","Archaeal","rDNA"]
+                #
+                collection_resultats=joinpath(posdsk,"matricefamillesquery.csv")
+                write(collection_resultats,join(titrespersonnalisés," ; ")*" \n "*join(lestranchestoutes," \n"))
+                collection_resultats=joinpath(posdsk,"comptesquery.csv")
+                write(collection_resultats,join(titrecompte," ; ")*"\n"*join(tablepoursite,"\n"))
+                pourgzip=compresser(splitdir(posdsk)[1])
+                termine = "  Process ended correctly "
+                travail = false
+                trigger = false
+                clearit = false
+                downloadinfo = "Ready ..."
+                montre_moi_tirer = true
+
+            else 
+                termine = "Sending $S to the riboDB TCP-server"
+                # genomesafaire=replace(replace(join(selectionQ,','),"representatifs" => "#R", "souchestype" => "#T", "ensembl" => "#E", "complet" => "#C"), "#R,#T" => "#R#T")           
+                #println(Spresentable,genomesafaire,posdsk)
+                
+                #host = string(getaddrinfo("tcpribo", IPv4))  # Resolves "tcpribo" to its IPv4 address
+                
+                host = "0.0.0.0"  # Localhost or the actual IP of the server listen(IPv4("0.0.0.0"), 8080)
+                port = 8080       # Ensure this matches the server's port
+                vecteurfamillescherchées::Vector{String}=[]
+                vecteurprotuniques::Vector{String}=[]
+                vecteurprotmultiples::Vector{String}=[]
+                ddff = DataTable(DataFrame(Family=String["no data"],Uniques=String["no data"],Multiples=String["no data"]))
+                ddff_pagination = DataTablePagination(rows_per_page = 5)
+                funit::String=""
+                compteurseq=0
+                # Create a TCP connection to the server
+                try
+                    sock = connect(host, port)
+                    response = readline(sock)  # Reads one line from the server
+                    termine= " Servers answer: $response"
+                    #println("Connected to server at $host:$port \n")
+                    encours = true
+                    
+                    # message="F1;$ti;$query;$qual;$diruseur\n" CNT;us9;Escherichia;#T,#R,#C,#E;1736194681541_ZABY1p6s;
+                    cptfamilles::Int64=0
+                    vuebig =true
+                    for funit in mesfamilles
+                        message=join([optionsx,funit,Spresentable,genomesafaire,cheminutilisateursimplifié*"\n"],";") 
+                        #println(message)
+                        write(sock, message)
+                        response = readline(sock)  # Reads one line from the server
+                        #println("réponse $response") #/Users/jean-pierreflandrois/Documents/GitHub/TCPriboDB/public/utilisateurs/task_1736200658296_D3ZawUy6/atelier_1736200658296_D3ZawUy6;ul1;18;0
+                        responsevect::Vector{String}=[String(i) for i in split(response,';')]
+                        push!(vecteurfamillescherchées, responsevect[2])
+                        push!(vecteurprotuniques, responsevect[3])
+                        compteurseq += parse(Int64,responsevect[3])
+                        if funit  ∉["16SrDNA", "23SrDNA", "5SrDNA"]
+                            push!(vecteurprotmultiples, responsevect[4])
+                            compteurseq += parse(Int64,responsevect[4])
+                        else 
+                            push!(vecteurprotmultiples, "not available")
+                        end
+                        #println(compteurseq) #["/Users/jean-pierreflandrois/Documents/GitHub/TCPriboDB/public/utilisateurs/task_1736200658296_D3ZawUy6/atelier_1736200658296_D3ZawUy6", "ul22", "18", "0"
+                        
+                        ddff = DataTable(DataFrame(Family=vecteurfamillescherchées,Uniques=vecteurprotuniques,Multiples=vecteurprotmultiples))
+                        if funit == mesfamilles[end]
+                            posdsk = responsevect[1]
+                        end
+                        cptfamilles+=1
+                        NP=string(prévisionsfamilles-cptfamilles)
+                    end
+                    vuebig =false
+                    # Close the connection
+                    close(sock)
+                    termine = "  Process ended correctly"
+                    closed=true
+                catch err
+                    println("Error: ", err)
+                    termine = "Error $err"
+                end
+                # if funit  ∉["16SrDNA", "23SrDNA", "5SrDNA"]
+                #     totalsequencesproduites=sum(vecteurprotuniques)+sum(vecteurprotmultiples)
+                # else
+                #     totalsequencesproduites=sum(vecteurprotuniques)
+                # end
+                S = "Result: $prévisionsfamilles  families treated for query $S,  $compteurseq sequences found"
+                travail = false
+                trigger = false
+                clearit = false
+                pourgzip=compresser(splitdir(posdsk)[1])
+                downloadinfo = "Ready ... "
+                montre_moi_tirer = true
             end
-            # if funit  ∉["16SrDNA", "23SrDNA", "5SrDNA"]
-            #     totalsequencesproduites=sum(vecteurprotuniques)+sum(vecteurprotmultiples)
-            # else
-            #     totalsequencesproduites=sum(vecteurprotuniques)
-            # end
-            S = "Result: $prévisionsfamilles  families treated for query $S,  $compteurseq sequences found"
-            travail = false
-            trigger = false
-            clearit = false
-            montre_moi_tirer = true
-       
         else
             #S = "/!\\ Faulty Query Please Verify !"
             travail = false
@@ -265,11 +394,11 @@ using DataFrames
     end
     
     @event download_event begin
-        downloadinfo = "running..." 
-        #println("downloda process")
-        #println(posdsk)
-        pourgzip=compresser(splitdir(posdsk)[1]) #compresser atelier sous le nom de l'utilisateur
-        #println("=====")
+        # downloadinfo = "running... => "*posdsk
+        # println("download process")
+        # println(posdsk)
+        # pourgzip=compresser(splitdir(posdsk)[1]) #compresser atelier sous le nom de l'utilisateur
+        # #println("=====")
         #println(pourgzip)
         downloadinfo = pourgzip
         try
@@ -298,12 +427,23 @@ function renvoieepoch()
     return dte(now())
 end
 
+
 function uniqueutilisateursimplifié()
     timestamp::String=string(renvoieepoch())
     random_string::String = randstring(8)  # 8-char random
     #fichtempo::String =  joinpath(pwd(),"public","utilisateurs","task_$(timestamp)_$(random_string)")
     fichtempo::String =  "$(timestamp)_$(random_string)"
     return fichtempo
+end
+
+function uniqueutilisateur()
+    timestamp::String=string(renvoieepoch())
+    random_string::String = randstring(8)  # 8-char random
+    fichtempo::String =  joinpath("public","utilisateurs","task_$(timestamp)_$(random_string)")
+    mkdir(fichtempo)
+    atelier::String=joinpath(fichtempo,"atelier_"*timestamp*"_"*random_string)
+    mkdir(atelier)
+    return atelier
 end
 
 function selecteurfamilles(nomsets) # bactprot archprot universaux
@@ -323,7 +463,7 @@ function compresser(classeur_utilisateur) #intermédiaire de zippp (oui 3 p) pou
     #pwd(),"public","utilisateurs","task_$(timestamp)_$(random_string)"
     
     #println("---")
-    println(classeur_utilisateur)#/Users/jean-pierreflandrois/Documents/PKDBGENIESTIPPLE/public/utilisateurs/task_20241013_220057_lfXiwPpZ/
+    #println(classeur_utilisateur)#/Users/jean-pierreflandrois/Documents/PKDBGENIESTIPPLE/public/utilisateurs/task_20241013_220057_lfXiwPpZ/
     originaldir=pwd()
     #println(originaldir)
 
@@ -336,20 +476,174 @@ function compresser(classeur_utilisateur) #intermédiaire de zippp (oui 3 p) pou
     #println(utilisateur, "  <- tar va faire <-  ",latelier)
     try 
         cmd=`tar -zcvf  $utilisateur $latelier`
-        println(cmd)
+        #println(cmd)
         run(pipeline(cmd,stdout=devnull,stderr=devnull))#,stdout="dev/null",stderr="dev/null"))
         
     catch
         println(" ERREUR   targz ",latelier,"   ")
         
     end
-
+    rm(latelier, recursive=true)
     cd(originaldir)
     #println("retour...",pwd())
     return utilisateur
 
 end
 
+
+function alladin()
+    titres,diderot=statistiquesbnf("/Users/jean-pierreflandrois/PKXPLORE")
+end
+
+function abinitiowhichresearch(vecteurmotpartiel::Vector{String},vecteurqualité::Vector{String})
+    #println(" selection  ",vecteurmotpartiel,"  ",vecteurqualité)
+    fuzzil(vecteurmotpartiel::Vector{String},vecteurqualité::Vector{String}) #fixe le mode de recherche incomplete 
+end
+
+function fuzzil(vecteurmotpartiel::Vector{String},vecteurqualité::Vector{String})
+    #deballage des cas possibles et on va affecter une fonction pour les différents cas 
+    lmp=length(vecteurmotpartiel)
+    if lmp==1
+        if vecteurqualité == [""]
+            recherche1_0
+        elseif length(vecteurqualité) ==1
+            recherche1_1
+        elseif length(vecteurqualité) ==2
+            recherche1_2
+        elseif length(vecteurqualité) ==3
+            recherche1_3
+        end
+    elseif lmp==2
+        if vecteurqualité == [""]
+            recherche2_0
+        elseif length(vecteurqualité) ==1
+            recherche2_1
+        elseif length(vecteurqualité) ==2
+            recherche2_2
+        elseif length(vecteurqualité) ==3
+            recherche2_3
+        end
+    elseif lmp==3
+        if vecteurqualité == [""]
+            recherche3_0
+        elseif length(vecteurqualité) ==1
+            recherche3_1
+        elseif length(vecteurqualité) ==2
+            recherche3_2
+        elseif length(vecteurqualité) ==3
+            recherche3_3
+        end
+    elseif lmp==4
+        if vecteurqualité == [""]
+            recherche4_0
+        elseif length(vecteurqualité) ==1
+            recherche4_1
+        elseif length(vecteurqualité) ==2
+            recherche4_2
+        elseif length(vecteurqualité) ==3
+            recherche4_3
+        end
+    elseif lmp==5
+        if vecteurqualité == [""]
+            recherche5_0
+        elseif length(vecteurqualité) ==1
+            recherche5_1
+        elseif length(vecteurqualité) ==2
+            recherche5_2  
+        elseif length(vecteurqualité) ==3
+            recherche5_3
+        end
+    end
+end
+
+#   recherche1
+function recherche1_0(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon))
+end
+function recherche1_1(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon))  && (occursin(vecteurqualité[1],irayon))
+end
+function recherche1_2(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon))  && (occursin(vecteurqualité[1],irayon) || occursin(vecteurqualité[2],irayon))
+end
+function recherche1_3(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon))  && (occursin(vecteurqualité[1],irayon) || occursin(vecteurqualité[2],irayon) || occursin(vecteurqualité[3],irayon))
+end
+# recherche2
+function recherche2_0(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon))
+end
+function recherche2_1(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    #println(vecteurqualité[1],"   ",irayon)
+    (occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon))  && (occursin(vecteurqualité[1],irayon))
+end
+function recherche2_2(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    #println("MP ",motpartiel[1],"  ",motpartiel[2],"  Q ",vecteurqualité[1],"  ",vecteurqualité[2])
+    # if (occursin(motpartiel[2],irayon))
+    #     println("2     ",irayon,vecteurqualité[1],vecteurqualité[2],"  u  ",(occursin(vecteurqualité[1],irayon) || occursin(vecteurqualité[2],irayon)),"  Σ ",(occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon))  && (occursin(vecteurqualité[1],irayon) || occursin(vecteurqualité[2],irayon)))
+    #     #stop()
+    # end
+    # if (occursin(motpartiel[1],irayon))
+    #     println("1     ",irayon,vecteurqualité[1],vecteurqualité[2],"  u  ",(occursin(vecteurqualité[1],irayon) || occursin(vecteurqualité[2],irayon)),"  Σ ",(occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon))  && (occursin(vecteurqualité[1],irayon) || occursin(vecteurqualité[2],irayon)))
+    #     #stop()
+    # end
+    #println((occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon))  && (occursin(vecteurqualité[1],irayon) || occursin(vecteurqualité[2],irayon)))
+    (occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon))  && (occursin(vecteurqualité[1],irayon) || occursin(vecteurqualité[2],irayon))
+
+end
+function recherche2_3(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon))  && (occursin(vecteurqualité[1],irayon) || occursin(vecteurqualité[2],irayon) || occursin(vecteurqualité[3],irayon))
+end
+
+# recherche3  
+function recherche3_0(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon) ||  occursin(motpartiel[3],irayon))
+end
+function recherche3_1(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon) || occursin(motpartiel[3],irayon))  && (occursin(vecteurqualité[1],irayon))
+end
+function recherche3_2(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon) || occursin(motpartiel[3],irayon))  && (occursin(vecteurqualité[1],irayon) || occursin(vecteurqualité[2],irayon))
+end
+function recherche3_3(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon) || occursin(motpartiel[3],irayon))  && (occursin(vecteurqualité[1],irayon) || occursin(vecteurqualité[2],irayon) || occursin(vecteurqualité[3],irayon))
+end
+
+# recherche4
+function recherche4_0(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon) || occursin(motpartiel[3],irayon) || occursin(motpartiel[4],irayon))
+end
+function recherche4_1(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon) || occursin(motpartiel[3],irayon) || occursin(motpartiel[4],irayon))  && (occursin(vecteurqualité[1],irayon))
+end
+function recherche4_2(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon) || occursin(motpartiel[3],irayon) || occursin(motpartiel[4],irayon))  && (occursin(vecteurqualité[1],irayon) || occursin(vecteurqualité[2],irayon))
+end
+function recherche4_3(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon) || occursin(motpartiel[3],irayon) || occursin(motpartiel[4],irayon))  && (occursin(vecteurqualité[1],irayon) || occursin(vecteurqualité[2],irayon) || occursin(vecteurqualité[3],irayon))
+end
+
+# recherche5 
+function recherche5_0(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon) || occursin(motpartiel[3],irayon) || occursin(motpartiel[4],irayon) || occursin(motpartiel[5],irayon))
+end
+function recherche5_1(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon) || occursin(motpartiel[3],irayon) || occursin(motpartiel[4],irayon) || occursin(motpartiel[5],irayon))  && (occursin(vecteurqualité[1],irayon))
+end
+function recherche5_2(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon) || occursin(motpartiel[3],irayon) || occursin(motpartiel[4],irayon) || occursin(motpartiel[5],irayon))  && (occursin(vecteurqualité[1],irayon) || occursin(vecteurqualité[2],irayon))
+end
+function recherche5_3(motpartiel::Vector{String},vecteurqualité::Vector{String},irayon::String)
+    (occursin(motpartiel[1],irayon) || occursin(motpartiel[2],irayon) || occursin(motpartiel[3],irayon) || occursin(motpartiel[4],irayon) || occursin(motpartiel[5],irayon))  && (occursin(vecteurqualité[1],irayon) || occursin(vecteurqualité[2],irayon) || occursin(vecteurqualité[3],irayon))
+end
+
+function importestatistiquesbnf()
+    #seulement la lecture des données
+    diris="STATSRIBODB"
+    encyclop::Dict{String,Vector{Int64}}=deserialize(joinpath(diris,"ENCYCLOPRIBODB.ser"))
+    #titres::Vector{String}=deserialize(joinpath(diori,diris,"TITRESENCYCLOP.ser")) #ecrit en dur 
+    return(encyclop)
+end
 # Function to define custom CSS styles taken from https://github.com/BuiltWithGenie/GenieTodo/blob/main/genietodo.jl
 function custom_styles()
     ["""
@@ -384,7 +678,7 @@ function ui()  #btn("valider",color="red",@click("press_btn = true")), # @onbutt
     Stipple.Layout.add_css(custom_styles)
 
     [cell([h1("riboDB extractor")])#toolbar("Configuration", class = "bg-primary text-white shadow-2")
-    cell([h6("LBBE UMR5558 Université Lyon1-CNRS & Master bioinfo@lyon Université Lyon1"),  a(href="https://github.com/jpflandrs/riboDB","Code")])
+    cell([h6("LBBE UMR5558 Université Lyon1-CNRS & Master bioinfo@lyon Université Lyon1"),  a(href="https://github.com/jpflandrs/riboDB/wiki","Help in riboDB Wiki")])
     separator(color = "primary")
     p(h5("General Parameters"))
     cell([h5("Global Parameters")])

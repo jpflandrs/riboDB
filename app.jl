@@ -5,31 +5,14 @@ using GenieFramework
 using GenieFramework.Genie.Requests: postpayload
 
 route("/") do
-    [ h4("Vous voici sur le serveur riboDB") ]
-end
-
-route("/form") do
-    Html.form(action = "/result", method="POST", [
-        input(type="textarea",rows="10", cols="150", name="N", placeholder="Fasta")
-        input(type="submit", value="Send")
-    ])
-#     html("""
-#   <h1>FASTA Sequence Processor</h1>
-#   <form action="/blast" method="POST">
-#       <label for="fasta_text">Enter FASTA sequence:</label><br>
-#       <textarea name="fasta_text" rows="10" cols="50"></textarea><br>
-#       <br>
-#       <input type="submit" value="Process">
-#   </form>
-#   """)
+    Html.div([h1("Here is the riboDB server")], [h2("riboDB")], [p("Exploring the ribosomal proteins of prokaryotes")], [a(href="https://github.com/jpflandrs/riboDB/wiki","Help in riboDB Wiki")],[p("  ")],[a(href="http://ribodb.univ-lyon1.fr/miningribodb","Mining riboDB")],
+    [h1("Another site available: PkXplore")], [h2("PkXplore")], [p("From rDNA and other nucleic sequences to phylogeny of Prokaryotes")], [a(href="https://github.com/jpflandrs/PkXplore/wiki","Help in PkXplore Wiki")],[p("  ")],[a(href="https://pkxplore.univ-lyon1.fr/nucworkshop","Querying PkXplore")],
+    [ h1("Old sites")],
+    [p("these sites may be functionning by chance")], [a(href="https://umr5558-bibiserv.univ-lyon1.fr/mubii/mubii-in.cgi","MUBII tuberculosis (obsolete)") ],[p("   ")],[ a(href="https://umr5558-proka.univ-lyon1.fr/PKPhy/PKPhy.html","leBIBI (obsolete) see PkXplore") ]
+    ) 
 end
 
 
-route("/result", method=POST) do
-    N = postpayload(:N)
-    
-    p("$N", style="font-size:20px")
-end
 
 
 include("riboDBsite.jl")
