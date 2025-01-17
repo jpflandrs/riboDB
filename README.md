@@ -116,6 +116,10 @@ From riboDB the data are re-organized in Julia dictionaries that are used by a T
 
 It is, like _TCPriboDB_ written in Julia using the **[GenieFramework](https://genieframework.com)**.
 
+NOTE that the current programs concern the Docker version.
+To use it outside docker, uncomment and resp. comment the two lines :
+`#host = "0.0.0.0"  # Localhost or the actual IP of the server listen(IPv4("0.0.0.0"), 8080)`
+`port = 8080       # Ensure this matches the server's port`
 
 
 ### TCP-server communication

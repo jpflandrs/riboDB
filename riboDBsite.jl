@@ -139,7 +139,7 @@ using DataFrames
         end
         #nettoyer par principe
         ddff = DataTable(DataFrame(Family=String["no data"],Uniques=String["no data"],Multiples=String["no data"]))
-        posdsk ="waiting for the link"
+        posdsk ="waiting for handshake"
         downloadinfo = "not Ready"
         
         download_event = false
@@ -164,7 +164,7 @@ using DataFrames
             #println("A $ticketvalide")
             for u in split(strip(S)," ")
                 if length(u) < 4 
-                    termine ="each query item must be longer than 5"
+                    termine ="each query item must be >= 4"
                     S=" $u is too short ! in "*join(Ssplit," ")
                     ticketvalide=false
                 else
@@ -191,7 +191,7 @@ using DataFrames
             NP=string(prévisionsfamilles)
             optionsx=replace(join(selectionO), "extraction" => "F1", "statseules" => "CNT")
             genomesafaire=replace(replace(join(selectionQ,','),"representatifs" => "#R", "souchestype" => "#T", "ensembl" => "#E", "complet" => "#C"), "#R,#T" => "#R#T") 
-            if optionsx == "F1CNT"
+            if optionsx == "F1CNT" || optionsx == "CNTF1"
                 termine ="Extraction AND Statistics, doing only Extraction"
                 optionsx = "CNT"
                 S="You must choose either Extraction OR Statistics: doing Statistics now, redo with Extraction only if needed"
@@ -315,9 +315,9 @@ using DataFrames
                 # genomesafaire=replace(replace(join(selectionQ,','),"representatifs" => "#R", "souchestype" => "#T", "ensembl" => "#E", "complet" => "#C"), "#R,#T" => "#R#T")           
                 #println(Spresentable,genomesafaire,posdsk)
                 
-                #host = string(getaddrinfo("tcpribo", IPv4))  # Resolves "tcpribo" to its IPv4 address
+                host = string(getaddrinfo("tcpribo", IPv4))  # Resolves "tcpribo" to its IPv4 address
                 
-                host = "0.0.0.0"  # Localhost or the actual IP of the server listen(IPv4("0.0.0.0"), 8080)
+                #host = "0.0.0.0"  # Localhost or the actual IP of the server listen(IPv4("0.0.0.0"), 8080)
                 port = 8080       # Ensure this matches the server's port
                 vecteurfamillescherchées::Vector{String}=[]
                 vecteurprotuniques::Vector{String}=[]
