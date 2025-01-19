@@ -121,6 +121,21 @@ To use it outside docker, uncomment and resp. comment the two lines :
 `#host = "0.0.0.0"  # Localhost or the actual IP of the server listen(IPv4("0.0.0.0"), 8080)`
 `port = 8080       # Ensure this matches the server's port`
 
+The best is to use inside a container and in this case:
+
+- 1) Create the databases from the TCPriboDB directory as explained in **[TCPriboDB](https://github.com/jpflandrs/TCPriboDB)** and then create and run the container tcpribo.
+
+- 2) Create the directories STATSRIBODB and riboDB (containing a log directory) in some distant place ``/SOURCE/`` or any other name _AND NOTE_ that this ``/SOURCE/`` is shared with the TCPserver (it thus contains already directories like TCPriboDB (and the log directory inside) and BNKriboDB_SER).
+
+- 3) Put the files ENCYCLOPRIBODB.ser and TITRESENCYCLOP.ser generated during the construction of the TCP server inside STATSRIBODB.
+
+- 4) Construct the network between the TCP container and the riboDB container `docker network create ribonetwork`
+
+- 5) From the riboDB directory `docker build -t ribodb .`
+
+- 6) `docker run --name ribodb --network ribonetwork -it -p 8008:8008 --mount type=bind,src=/pathto/SOURCE/PKXPLORE/public,target=/home/genie/app/public --mount type=bind,src=/pathto/SOURCE/riboDB/log,target=/home/genie/app/log ribodb` 
+
+So that the riboDB server is communicating on port 8008 (may be another port).
 
 ### TCP-server communication
 Both entities are in theyr own Docker and communicate using a Docker network. The server is behind a NGINX server to communicate outside.
