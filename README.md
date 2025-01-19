@@ -121,31 +121,34 @@ To use it outside docker, uncomment and resp. comment the two lines :
 `#host = "0.0.0.0"  # Localhost or the actual IP of the server listen(IPv4("0.0.0.0"), 8080)`
 `port = 8080       # Ensure this matches the server's port`
 
-The best is to use inside a container and in this case:
+The best is to use inside a container and in this case the TCP server must be set-up before:
 
-- 1) Create the databases from the TCPriboDB directory as explained in **[TCPriboDB](https://github.com/jpflandrs/TCPriboDB)** and then create and run the container tcpribo.
+- 1) Create the directories and databases from the TCPriboDB directory as explained in **[TCPriboDB](https://github.com/jpflandrs/TCPriboDB)** and then create and run the container tcpribo. The instructions are also here (in english):
 
-- 2) Create the directories STATSRIBODB and riboDB (containing a log directory) in some distant place ``/SOURCE/`` or any other name _AND NOTE_ that this ``/SOURCE/`` is shared with the TCPserver (it thus contains already directories like TCPriboDB (and the log directory inside) and BNKriboDB_SER).
+  - 1) From the TCPriboDB directory `julia prepareBNF.jl` will built `ENSEMBLEdes_serRP_V2` and `ENCYCLOPRIBODB.ser` and `TITRESENCYCLOP.ser`. Note that the path to the riboDB database is set in _Main_ (D1 and D2) and you need to fix this first.
+  - 2) Create a directory ``/SOURCE/`` somewhere outside the TCPriboDB directory (the name is at your convenience).
+  - 3) Within ``/SOURCE/`` create a directory `BNKriboDB_SER` and place here the _content_ of `ENSEMBLEdes_serRP_V2`.
+  - 4) Same, within ``/SOURCE/`` create a directory `STATSRIBODB` and place here `ENCYCLOPRIBODB.ser` and `TITRESENCYCLOP.ser`
+  - 5) Same, within ``/SOURCE/`` create the directories `public` and then `public/utilisateurs`, `TCPriboDB` and then `TCPriboDB/log`
+  - 6) Build the container `docker build -t tcpribodb .` 
+  - 7) Create the specific netwoerk `docker network create ribonetwork`
+  - 8) Then `docker run --name tcpribo  --network ribonetwork -it -p 8080:8080 --mount type=bind,src=/pathto/SOURCE/BNKriboDB_SER,target=/home/ribo_tcp/app/BNKriboDB_SER --mount type=bind,src=/pathto/SOURCE/public,target=/home/ribo_tcp/app/public --mount type=bind,src=/apthto/SOURCE/TCPriboDB/log/,target=/home/ribo_tcp/app/log tcpribo`
 
-- 3) Put the files ENCYCLOPRIBODB.ser and TITRESENCYCLOP.ser generated during the construction of the TCP server inside STATSRIBODB.
+- 2) Change to the riboDB directory 
+- 3) Build the container `docker build -t ribodb .`
+- 4) `docker run --name ribodb --network ribonetwork -it -p 8008:8008 --mount type=bind,src=/pathto/SOURCE/PKXPLORE/public,target=/home/genie/app/public --mount type=bind,src=/pathto/SOURCE/riboDB/log,target=/home/genie/app/log ribodb` 
 
-- 4) Construct the network between the TCP container and the riboDB container `docker network create ribonetwork`
-
-- 5) From the riboDB directory `docker build -t ribodb .`
-
-- 6) `docker run --name ribodb --network ribonetwork -it -p 8008:8008 --mount type=bind,src=/pathto/SOURCE/PKXPLORE/public,target=/home/genie/app/public --mount type=bind,src=/pathto/SOURCE/riboDB/log,target=/home/genie/app/log ribodb` 
-
-So that the riboDB server is communicating on port 8008 (may be another port).
+So that the riboDB server is communicating toward outside (via NGINX) on port 8008 (may be another port) but the TCP server is communicating with the riboDB web server on port 8080.
 
 ### TCP-server communication
-Both entities are in theyr own Docker and communicate using a Docker network. The server is behind a NGINX server to communicate outside.
+Both entities are in their own Docker and communicate using the Docker network. The server is behind a NGINX server to communicate outside.
 Here is the NGINX description file in /sites-available
 
     server {
     listen 8008;
     listen [::]:8008;
 
-    server_name   134.214.35.110;
+    server_name   nnn.nnn.nnn.nnn;
     root          /;
     index         welcome.html;
 
@@ -159,15 +162,17 @@ Here is the NGINX description file in /sites-available
     }
     }
 
-Note for the Docker run instructions:
-The directory PKXPLORE is here shared with **[PkXplore]("https://github.com/jpflandrs/PkXplore")** to hold the clients files and the logs. It must exist (or another directory with a "public" subdirectory, and also riboDB/log inside (see instructions))
+### Some explainations
 
-    docker run --name ribodb --network ribodbnetwork -it -p 8008:8008 \
-    --mount type=bind,src=/path_to/PKXPLORE/public,target=/home/genie/app/public \
-    --mount type=bind,src=/path_to/PKXPLORE/riboDB/log,target=/home/genie/app/log \
-    ribodb_dockerid
+On the client side there are two posssible queries
+- 1) Statistics
+  - 1) The files that can be downloaded are constructed *by the web server* riboDB and stored in `public/utilisateurs` in a `task_nnnnn_aaaa/atelier__nnnnn_aaaa` subdirectory. 
+- 2) Extraction 
+  - 1) The files that can be downloaded are constructed *by the TCP server* riboDB and stored in `public/utilisateurs` in a `task_nnnnn_aaaa/atelier__nnnnn_aaaa` subdirectory.
 
-This is launched from a screen session. 
+`task_nnnnn_aaaa/atelier__nnnnn_aaaa` is an unique identifyer that change for each query, so even if you ask for statistics and then extraction, the directory is not shared
+
+In our machine  `public/utilisateurs` is also used by **[PkXplore]("https://github.com/jpflandrs/PkXplore")** to hold the clients files and the logs. 
 
 ## License
 
