@@ -1,5 +1,6 @@
 # riboDB
 
+## Using the web-site
 This site is a new version of the previous site "*RiboDB : a prokaryotic ribosomal components DataBase*" hosted at the same URL.
 The previous version was written in Python3 and uses CGI. But the CGI module is "*deprecated since version 3.11, removed in version 3.13*" so the need to refresh the site.
 
@@ -7,13 +8,13 @@ Using the new website is less difficult and more safe, most choices are obvious.
 
 The riboDB DB (nov 2024) contains data from 254,984 genomes (2262 _Archaea_, 252,722 _Bacteria_) and 15,282,163 sequences corresponding to 23,858 species of _Bacteria_ and 938 of _Archaea_. 
 
-## Extraction or statistic
+### Extraction or statistic
 
-### Extraction
+#### Extraction
 
 From a query we will try to extract the ribosomal proteins and/or if needed the SSUrDNA.
 
-#### Choosing the proteins families
+##### Choosing the proteins families
 R-prots are named according to BAN, BECKMANN, CATE _et al._ A new system for naming ribosomal proteins. Current opinion in structural biology, 2014, vol. 24, p. 165-169 **[Ban Lab website](https://bangroup.ethz.ch/research/nomenclature-of-ribosomal-proteins.html)**
 
 The families are 
@@ -30,11 +31,11 @@ and _Archaea_ have "*Archaeal Specific*" families
 
 If you are looking for Bacteria only, you need to select "*Universal*" and "*Bacterial Specific*" and if Archaea, "*Universal*" and "*Archaeal Specific*" families.
 
-#### Selecting SSUrDNA (16S, 23S, 5S)
+##### Selecting SSUrDNA (16S, 23S, 5S)
 
 ``["16SrDNA", "23SrDNA", "5SrDNA"]``
 
-#### Selecting the quality-driven categories of the genomes
+##### Selecting the quality-driven categories of the genomes
 
 1) Reference or Representative genomes (as defined by the NCBI): high quality of the genomes and said to be a good exemple of the genomes of the species.
 2) Genomes corresponding to Type-Strains, this qualification correspond to Type-stains of the species. But Type-stains may not be the best exemple for some species, and the quality of the genome is not guaranteed.
@@ -42,7 +43,7 @@ When a genome is said Representative _and_ belonging to a Type-Strain, this is t
 3) Genomes given as complete. This are usually good quality genomes but the major advantage is the coverage of the whole genome.
 4) Genomes selected i the Ensembl! databank. Ensembl! is selecting the genomes to get a good representation of the geno-diversity of a species, and also check the global quality of the genomes (but this may much lower than that of Representative genomes)
 
-#### The QUERY
+##### The QUERY
 
 Any word of fragment of word of more than 4 letters may be used as a query
 The query must be one-ligned ad separators are spaces (white spaces) like here:
@@ -57,11 +58,11 @@ The query is possible with or within:
 And ``Methanosarcinales`` is a valid option, but ``Methano`` is also valid.
 Note that some research **must** include "-" : ``Burkholderia`` will also return ``Burkholderiaceae``, the solution is to  add the separator: ``Burkholderia-``.
 
-#### Submit 
+##### Submit 
 The process being launched, the number of remaining family to treat is shown and the table is populating (you can expand it to more than 5 during the extraction). 
 A summary appears at the end of the extraction.
 
-#### Download the extracted sequences 
+##### Download the extracted sequences 
 Note that the extracted sequences may not conserved more than 30 minutes.
 The zipped directory is something like ``task_1736500391710_yGoNZJj9.tar.zip`` and when unzipped you get a directory ``atelier_1736368361478_g2QOgx4k`` with all the extracted families.
 Inside each sub-directory (say ``us10``) there are 4 files 
@@ -69,12 +70,12 @@ Inside each sub-directory (say ``us10``) there are 4 files
 1) protein sequences like ``us10_prot_uniques.fasta``, ``us10_prot_multiples.fasta``
 2) nucleic sequences like ``us10_nuc_uniques.fasta``, ``us10_nuc_multiples.fasta``
 
-##### uniques vs multiples
+###### uniques vs multiples
 The explaination is straightforward: when only one protein is found in a genome, it is classified as "unique" and if more than one is is put in the "multiples" category. Multiples may be paralogues, duplicated etc. No check is done.
 
-##### the special case of rDNA
+###### the special case of rDNA
 each family sub-directory has only one files (``...nuc_uniques.fasta``) because only one rDNA from the possible multiples operons is retained on the basis of its centrality. The "unique" class is then not informative of the number of sequences in the genome. This is due to the fact that this database has been developped for the **[PkXplore web-site](https://pkxplore.univ-lyon1.fr/nucworkshop)** and available here for information.
-##### the riboDB fasta
+###### the riboDB fasta
 
 Typically:
 ``BEGIN COMMENTARY \n SEQUENCE`` ``BEGIN``is ``>``
@@ -92,7 +93,7 @@ Here within the COMMENTARY line:
 8) ``11`` :genetic code
 9) ``Bacteria-Pseudomonadota-Gammaproteobacteria-Enterobacterales-Enterobacteriaceae-Escherichia``: Lineage_report (simplified) = Domain-Phylum-Class-Order-Family-Genus
 
-### Statistics
+#### Statistics
 
 In fact the results are similar, except that extraction not being done, upload will give nothing.
 This function will be improoved.
@@ -116,65 +117,222 @@ From riboDB the data are re-organized in Julia dictionaries that are used by a T
 
 It is, like _TCPriboDB_ written in Julia using the **[GenieFramework](https://genieframework.com)**.
 
-NOTE that the current programs concern the Docker version.
-To use it outside docker, uncomment and resp. comment the two lines :
-`#host = "0.0.0.0"  # Localhost or the actual IP of the server listen(IPv4("0.0.0.0"), 8080)`
-`port = 8080       # Ensure this matches the server's port`
+# Building the web-site
 
-The best is to use inside a container and in this case the TCP server must be set-up before:
+## Preparing the BNF
 
-- 1) Create the directories and databases from the TCPriboDB directory as explained in **[TCPriboDB](https://github.com/jpflandrs/TCPriboDB)** and then create and run the container tcpribo. The instructions are also here (in english):
+The BNF is a system for representing sequences as a dictionary. An alternative would have been to use a classic DBMS. There are multiple reasons for not choosing the DBMS option, but the main idea is that the TCP server is a solution that can be used every time a Knowledge Base (BdC, the new representation of genomes) is created to allow local queries and is not limited to riboDB.
 
-  - 1) From the TCPriboDB directory `julia prepareBNF.jl` will built `ENSEMBLEdes_serRP_V2` and `ENCYCLOPRIBODB.ser` and `TITRESENCYCLOP.ser`. Note that the path to the riboDB database is set in _Main_ (D1 and D2) and you need to fix this first.
-  - 2) Create a directory ``/SOURCE/`` somewhere outside the TCPriboDB directory (the name is at your convenience).
-  - 3) Within ``/SOURCE/`` create a directory `BNKriboDB_SER` and place here the _content_ of `ENSEMBLEdes_serRP_V2`.
-  - 4) Same, within ``/SOURCE/`` create a directory `STATSRIBODB` and place here `ENCYCLOPRIBODB.ser` and `TITRESENCYCLOP.ser`
-  - 5) Same, within ``/SOURCE/`` create the directories `public` and then `public/utilisateurs`, `TCPriboDB` and then `TCPriboDB/log`
-  - 6) Build the container `docker build -t tcpribodb .` 
-  - 7) Create the specific netwoerk `docker network create ribonetwork`
-  - 8) Then `docker run --name tcpribo  --network ribonetwork -it -p 8080:8080 --mount type=bind,src=/pathto/SOURCE/BNKriboDB_SER,target=/home/ribo_tcp/app/BNKriboDB_SER --mount type=bind,src=/pathto/SOURCE/public,target=/home/ribo_tcp/app/public --mount type=bind,src=/apthto/SOURCE/TCPriboDB/log/,target=/home/ribo_tcp/app/log tcpribo`
+We start from the latest version of riboDB (riboDB is available upon request and can be downloaded via the lab's website or internally on the bibi-lab server). RiboDB is a set of FASTA files classified by families and (except for dRNA) includes 4 files per family:
+```famille_prot_uniques.fasta; famille_prot_multiples.fasta; famille_nuc_multiples.fasta; famille_nuc_uniques.fasta```
 
-- 2) Change to the riboDB directory 
-- 3) Build the container `docker build -t ribodb .`
-- 4) `docker run --name ribodb --network ribonetwork -it -p 8008:8008 --mount type=bind,src=/pathto/SOURCE/PKXPLORE/public,target=/home/genie/app/public --mount type=bind,src=/pathto/SOURCE/riboDB/log,target=/home/genie/app/log ribodb` 
+**WARNING**: The new version of the rDNA extractor produces **inadequate** filenames! Change them as shown below (for Archaea and Bacteria)! Example:
 
-So that the riboDB server is communicating toward outside (via NGINX) on port 8008 (may be another port) but the TCP server is communicating with the riboDB web server on port 8080.
+```shell
+/Users/flandrs/Documents/ProtéinesDuJour/RIBODB/ENSEMBLEdes_serRP_V2/16SrDNA/16SrDNA_nuc_uniques.ser
+/Users/flandrs/Documents/ProtéinesDuJour/RIBODB/BACTERIA/16SrDNA/16SrDNA.fst
+/Users/flandrs/Documents/ProtéinesDuJour/RIBODB/ENSEMBLEdes_serRP_V2/23SrDNA/23SrDNA_nuc_uniques.ser
+/Users/flandrs/Documents/ProtéinesDuJour/RIBODB/BACTERIA/23SrDNA/23SrDNA.fst
+/Users/flandrs/Documents/ProtéinesDuJour/RIBODB/ENSEMBLEdes_serRP_V2/5SrDNA/5SrDNA_nuc_uniques.ser
+/Users/flandrs/Documents/ProtéinesDuJour/RIBODB/BACTERIA/5SrDNA/5SrDNA.fst
+```
+Awaiting a solution!!!
 
-### TCP-server communication
-Both entities are in their own Docker and communicate using the Docker network. The server is behind a NGINX server to communicate outside.
+Archaea and Bacteria are separated.
+
+The families are:
+
+```["16SrDNA", "23SrDNA", "5SrDNA", "bTHX", "bl12", "bl17", "bl19", "bl20", "bl21", "bl25", "bl27", "bl28", "bl31", "bl32", "bl33", "bl34", "bl35", "bl36", "bl39", "bl9", "bs16", "bs18", "bs20", "bs21", "bs6", "cs23", "ul1", "ul10", "ul11", "ul13", "ul14", "ul15", "ul16", "ul18", "ul2", "ul22", "ul23", "ul24", "ul29", "ul3", "ul30", "ul4", "ul5", "ul6", "us10", "us11", "us12", "us13", "us14", "us15", "us17", "us19", "us2", "us3", "us4", "us5", "us7", "us8", "us9", "al45", "al46", "al47", "el13", "el14", "el15", "el18", "el19", "el20", "el21", "el24", "el30", "el31", "el32", "el33", "el34", "el37", "el38", "el39", "el40", "el42", "el43", "el8", "es1", "es17", "es19", "es24", "es25", "es26", "es27", "es28", "es30", "es31", "es4", "es6", "es8", "p1p2"]```
+
+The following families are shared between Bacteria and Archaea:
+
+```communs=["16SrDNA", "23SrDNA", "5SrDNA", "ul1", "ul10", "ul11", "ul13", "ul14", "ul15", "ul16", "ul18", "ul2", "ul22", "ul23", "ul24", "ul29", "ul3", "ul30", "ul4", "ul5", "ul6", "us10", "us11", "us12", "us13", "us14", "us15", "us17", "us19", "us2", "us3", "us4", "us5", "us7", "us8", "us9"]```
+
+The following families are specific to Bacteria:
+
+```bacteriapropres=["bTHX", "bl12", "bl17", "bl19", "bl20", "bl21", "bl25", "bl27", "bl28", "bl31", "bl32", "bl33", "bl34", "bl35", "bl36", "bl9", "bs16", "bs18", "bs20", "bs21", "bs6", "cs23"]```
+
+And the following families are specific to Archaea:
+
+```archaeapropres=["al45", "al46", "al47", "el13", "el14", "el15", "el18", "el19", "el20", "el21", "el24", "el30", "el31", "el32", "el33", "el34", "el37", "el38", "el39", "el40", "el42", "el43", "el8", "es1", "es17", "es19", "es24", "es25", "es26", "es27", "es28", "es30", "es31", "es4", "es6", "es8", "p1p2"]```
+
+The principle of preparation is to associate the sequences of Bacteria and Archaea from shared families in the same file while creating, for each family and each type of protein, a dictionary Dict{String,String} linking the FASTA comment to its sequence.
+
+Everything is serialized and ready to use. A future option could be to use additional zip compression to facilitate exchanges (as this allows 77% compression).
+
+
+The script prepareBNF.jl does the job. As in all my development phases, the paths are hardcoded in the .jl file in __Main__. You have to change it:
+
+```
+D1="/Users/jean-pierreflandrois/Documents/ProtéinesDuJour/RIBODB/BACTERIA"
+D2="/Users/jean-pierreflandrois/Documents/ProtéinesDuJour/RIBODB/ARCHAEA"
+```
+to, for instance:
+
+```
+D1="/Users/flandrs/Documents/Proteinsoftheday/RIBODB/BACTERIA"
+D2="/Users/flandrs/Documents/Proteinsoftheday/RIBODB/ARCHAEA"
+```
+
+prepareBNF.jl is slow!!! because it is not parallelized, but it is not done often.
+
+
+Proteinsoftheday will be a folder dedicated to this work; I have abandoned the dated names here for simplicity.
+This must be changed in the real context. So, julia prepareBNF.jl does the job.
+Take the outputs (yes, not everything is automatic...):
+
+In a folder whose name is also hardcoded (~line 92): ENSEMBLEdes_serRP_V2, put the files ENCYCLOPRIBODB.ser and TITRESENCYCLOP.ser
+
+
+## Structure of the Site's Folders (for both nucworkshop and riboDB)
+Typically, there should be a folder called ```PKXPLORE``` that serves as both a database and a results repository.
+It contains:
+
+- For nucworkshop, PKXPLORE (yes, same name, sorry), is related to BLAST searches on nucleic databases (like rDNA). It is not essential for riboDB, but on our server, everything is associated.
+- For riboDB you need the following folders:
+  - ```BNKriboDB_SER```: Contains the protein databases by family (riboDB) in serialized format.
+  - ```STATSRIBODB```: Contains pre-calculated statistical data in serialized format.
+  - ```riboDB```, ```TCPriboDB```, and ```log``` to collect logs, and finally 
+  - the ```public``` folder with a user folder  (note the exact name is ```utilisateurs```) that will contain the extractions.
+
+To avoid issues, it is recommended to carefully respect the structure of ```PKXPLORE```, which will be used by Docker instructions.
+
+```PKXPLORE``` is therefore the folder that contains both the data and the results.
+
+We will see here extensively its structure:
+
+- ```PKXPLORE/BLAST``` (```ls``` output). Remember that this folder is not used by riboDB and may be empty.
+```shell 
+Ar_TRECS_ChaperoninGroeL.fst                            Ba_TRECS_ChaperoninGroeL.fst.nin                      Ba_TRECS_TranslationElongationFactorTu.fst.nos  cTRECS_23SrRNA.fst.ntf  TRECS_23SrRNA.fst.ndb
+Ar_TRECS_ChaperoninGroeL.fst.ndb                        Ba_TRECS_ChaperoninGroeL.fst.njs                      Ba_TRECS_TranslationElongationFactorTu.fst.not  cTRECS_23SrRNA.fst.nhr   TRECS_23SrRNA.fst.njs
+Ar_TRECS_ChaperoninGroeL.fst.nhr                        Ba_TRECS_ChaperoninGroeL.fst.nog                      Ba_TRECS_TranslationElongationFactorTu.fst.nto  cTRECS_23SrRNA.fst.nin   TRECS_23SrRNA.fst.nog
+Ar_TRECS_ChaperoninGroeL.fst.nin                        Ba_TRECS_ChaperoninGroeL.fst.nos                      Ba_TRECS_TranslationElongationFactorTu.fst.nsq  cTRECS_23SrRNA.fst.njs   TRECS_23SrRNA.fst.nos
+Ar_TRECS_ChaperoninGroeL.fst.njs                        Ba_TRECS_ChaperoninGroeL.fst.not                      cTRECS_16SrRNA.fst                              cTRECS_23SrRNA.fst.nog   TRECS_23SrRNA.fst.not
+Ar_TRECS_ChaperoninGroeL.fst.nog                        Ba_TRECS_ChaperoninGroeL.fst.nsq                      cTRECS_16SrRNA.fst.ndb                          cTRECS_23SrRNA.fst.nos   TRECS_23SrRNA.fst.nsq
+.../...
+cTRECS_16SrRNA.fst.nsq                          cTRECS_5SrRNA.fst.nog   TRECS_5SrRNA.fst.njs
+Ar_TRECSextended_TranslationElongationFactorTu.fst.nin  Ba_TRECS_DNADirectedRNAPolymeraseSubunitBeta.fst.nsq  cTRECS_23SrRNA.fst                              cTRECS_5SrRNA.fst.nos   TRECS_5SrRNA.fst.nog
+Ar_TRECSextended_TranslationElongationFactorTu.fst.njs  Ba_TRECS_DNADirectedRNAPolymeraseSubunitBeta.fst.ntf  cTRECS_23SrRNA.fst.ndb                          cTRECS_5SrRNA.fst.nsq   TRECS_5SrRNA.fst.nos
+Ar_TRECSextended_TranslationElongationFactorTu.fst.nog  Ba_TRECS_TranslationElongationFactorTu.fst            cTRECS_23SrRNA.fst.nhr                          cTRECS_5SrRNA.fst.nto   TRECS_5SrRNA.fst.nsq
+cTRECS_23SrRNA.fst.ntf                          TRECS_16SrRNA.fst.nos   TRECS_5SrRNA.fst.nin
+...
+```
+
+
+- ```PKXPLORE/log``` :
+  - ```PKXPLORE/log/prod-2025-06-30.log```
+  - ```PKXPLORE/log/prod-2025-09-12.log```
+
+- ```PKXPLORE/public```: Contains users results in 
+  - ```PKXPLORE/public/utilisateurs```
+    - ```PKXPLORE/public/utilisateurs/task_1759861102339_UcWWhkjM/atelier_1759861102339_UcWWhkjM/...```
+  - On the client side there are two posssible queries
+  - 1) Statistics
+    - 1) The files that can be downloaded are constructed *by the web server* riboDB and stored in `public/utilisateurs` in a `task_nnnnn_aaaa/atelier__nnnnn_aaaa` subdirectory. 
+  - 2) Extraction 
+    - 1) The files that can be downloaded are constructed *by the TCP server* riboDB and stored in `public/utilisateurs` in a `task_nnnnn_aaaa/atelier__nnnnn_aaaa` subdirectory.
+  - 3) `task_nnnnn_aaaa/atelier__nnnnn_aaaa` is an unique identifyer that change for each query, so even if you ask for statistics and then extraction, the directory is not shared
+
+  - In our machine  `public/utilisateurs` is also used by **[PkXplore]("https://github.com/jpflandrs/PkXplore")** to hold the clients files and the logs. 
+
+- ```PKXPLORE/STATSRIBODB```: Contains pre-calculated statistical data, e.g., 
+  - ```PKXPLORE/STATSRIBODB/ENCYCLOPRIBODB.ser```
+  - ```PKXPLORE/STATSRIBODB/TITRESENCYCLOP.ser```
+
+- ```PKXPLORE/BNKriboDB_SER```: Contains serialized FASTA sequences of families in folders by family:
+  - ```PKXPLORE/BNKriboDB_SER/16SrDNA```
+  - ```PKXPLORE/BNKriboDB_SER/al45``` Etc.
+
+Here is the family list:
+```shell
+16SrDNA  al45  bl12  bl20  bl27  bl32  bl35  bs16  bs21  cs23  el15  el20  el30  el33  el38  el41  el8   es19  es26  es30  es6   ul1   ul13  ul16  ul22  ul29  ul4  us10  us13  us17  us3  us7
+23SrDNA  al46  bl17  bl21  bl28  bl33  bl36  bs18  bs6   el13  el18  el21  el31  el34  el39  el42  es1   es24  es27  es31  es8   ul10  ul14  ul18  ul23  ul3   ul5  us11  us14  us19  us4  us8
+5SrDNA   al47  bl19  bl25  bl31  bl34  bl9   bs20  bTHX  el14  el19  el24  el32  el37  el40  el43  es17  es25  es28  es4   p1p2  ul11  ul15  ul2   ul24  ul30  ul6  us12  us15  us2   us5  us9
+```
+
+Finally, logs for riboDB and its TCP server:
+
+- ```PKXPLORE/riboDB/log```
+- ```PKXPLORE/TCPriboDB/log```
+
+## Transferring Folders from Julia Programs TCPriboDB and riboDB
+The easiest way is to retrieve them from GitHub.
+
+Attention: Follow the instructions below for LINUX servers!
+
+## Docker Build and Docker Run
+ASSUMPTION: THE SERVER IS A LINUX MACHINE
+
+So, ```/home/user_name/PKXPLORE``` as the base path! (here /home/flandrs). On MAC, it's ```/Users/flandrs/PKXPLORE```, so you will need to change it.
+
+Here are the instructions to build and run Docker:
+
+```shell
+cd TCPriboDB
+screen -S TCP
+docker build -t tcpribodb .
+docker run --name tcpribo  --network jpfnetwork -it -p 8080:8080 --mount type=bind,src=/home/flandrs/PKXPLORE/BNKriboDB_SER,target=/home/ribo_tcp/app/BNKriboDB_SER --mount type=bind,src=/home/flandrs/PKXPLORE/public,target=/home/ribo_tcp/app/public --mount type=bind,src=/home/flandrs/PKXPLORE/TCPriboDB/log/,target=/home/ribo_tcp/app/log tcpribodb
+````
+Answer : Listening
+Ctrl A + Ctrl D (detach screen)
+
+```shell
+cd riboDB
+screen -S ribodb
+docker build -t ribodb .
+sudo docker run --name ribodb --network jpfnetwork -it -p 8008:8008 --mount type=bind,src=/home/flandrs/PKXPLORE/public,target=/home/genie/app/public --mount type=bind,src=/home/flandrs/PKXPLORE/riboDB/log,target=/home/genie/app/log ribodb
+
+ ██████╗ ███████╗███╗   ██╗██╗███████╗    ███████╗
+██╔════╝ ██╔════╝████╗  ██║██║██╔════╝    ██╔════╝
+██║  ███╗█████╗  ██╔██╗ ██║██║█████╗      ███████╗
+██║   ██║██╔══╝  ██║╚██╗██║██║██╔══╝      ╚════██║
+╚██████╔╝███████╗██║ ╚████║██║███████╗    ███████║
+ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═╝╚══════╝    ╚══════╝
+[ Info: Binding to host 0.0.0.0 and port 8008
+Ctrl A + Ctrl D (detach screen)
+```
+
+## NGINX Configuration on the Server
+
+Both entities are in their own Docker and communicate using the Docker network. 
+
+The server is behind a NGINX server to communicate outside.
 Here is the NGINX description file in /sites-available
 
-    server {
-    listen 8008;
-    listen [::]:8008;
+```shell
+cat /etc/nginx/sites-enabled/my-genie-app
+server {
+  listen 80;
+  listen [::]:80;
+  server_name   134.214.35.110;
+  root          /;
+  index         welcome.html;
+  location / {
+      proxy_http_version 1.1;
+      proxy_pass http://localhost:8000;
+      #websocket specific settings
+      proxy_set_header Upgrade \$http_upgrade;
+      proxy_set_header Connection "upgrade";
+      proxy_set_header Host \$host;
+  }
+}
+server {
+  listen 8008;
+  listen [::]:8008;
+  server_name   134.214.35.110;
+  root          /;
+  index         welcome.html;
+  location / {
+      proxy_http_version 1.1;
+      proxy_pass http://localhost:8008;
+      #websocket specific settings
+      proxy_set_header Upgrade \$http_upgrade;
+      proxy_set_header Connection
+```
 
-    server_name   nnn.nnn.nnn.nnn;
-    root          /;
-    index         welcome.html;
 
-    location / {
-        proxy_http_version 1.1;
-        proxy_pass http://localhost:8008;
-        #websocket specific settings
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_set_header Host $host;
-    }
-    }
 
-### Some explainations
-
-On the client side there are two posssible queries
-- 1) Statistics
-  - 1) The files that can be downloaded are constructed *by the web server* riboDB and stored in `public/utilisateurs` in a `task_nnnnn_aaaa/atelier__nnnnn_aaaa` subdirectory. 
-- 2) Extraction 
-  - 1) The files that can be downloaded are constructed *by the TCP server* riboDB and stored in `public/utilisateurs` in a `task_nnnnn_aaaa/atelier__nnnnn_aaaa` subdirectory.
-
-`task_nnnnn_aaaa/atelier__nnnnn_aaaa` is an unique identifyer that change for each query, so even if you ask for statistics and then extraction, the directory is not shared
-
-In our machine  `public/utilisateurs` is also used by **[PkXplore]("https://github.com/jpflandrs/PkXplore")** to hold the clients files and the logs. 
-
-## License
+# License
 
     riboDBsite.jl le site riboDB
 
