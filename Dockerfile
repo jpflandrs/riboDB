@@ -1,5 +1,5 @@
-#FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64"
-FROM julia:latest 
+#ribodb
+FROM julia:1.11
 
 # Create user and set up directories
 RUN useradd --create-home --shell /bin/bash genie
@@ -18,7 +18,13 @@ USER genie
 EXPOSE 8000
 EXPOSE 80
 
-# Set environment variables LegacyKeyValueFormat: "ENV key=value" should be used instead of legacy "ENV key value" format
+# Préparer l'environnement Julia
+RUN julia -e 'using Pkg; Pkg.Registry.add("General")'
+RUN julia -e 'using Pkg; Pkg.add("JuliaFormatter")'
+
+# ⚠️ Important : forcer l’installation d’OpenSSL_jll avant l’instanciation
+RUN julia -e 'using Pkg; Pkg.add("OpenSSL_jll")'
+
 ENV JULIA_DEPOT_PATH="/home/genie/.julia"
 ENV JULIA_REVISE="off"
 ENV GENIE_ENV="prod"
@@ -27,7 +33,10 @@ ENV PORT="8008"
 ENV WSPORT="8008"
 ENV EARLYBIND="true"
 
+# Instancier ton projet
+RUN julia --project=. -e 'using Pkg; Pkg.resolve(); Pkg.instantiate(); Pkg.precompile()'
+
 # Install Julia packages
-RUN julia -e "using Pkg; Pkg.activate(\".\"); Pkg.instantiate(); Pkg.precompile();"
+# RUN julia -e "using Pkg; Pkg.activate(\".\"); Pkg.instantiate(); Pkg.precompile();"
 
 ENTRYPOINT ["julia", "--project", "-e", "using GenieFramework; Genie.loadapp(); up(async=false);"]

@@ -104,7 +104,7 @@ using DataFrames
         selectionN = []
         compteurseq=0
         NP="na"
-        ddff = DataTable(DataFrame(Family=String["no data101"],Uniques=String["no data"],Multiples=String["no data"]))
+        ddff = DataTable(DataFrame(Family=String["no data107"],Uniques=String["no data"],Multiples=String["no data"]))
         ddff_pagination = DataTablePagination(rows_per_page = 1)
         download_event = false
         downloadinfo = "not Ready"
@@ -190,7 +190,7 @@ using DataFrames
             prévisionsfamilles=length(mesfamilles)
             NP=string(prévisionsfamilles)
             optionsx=replace(join(selectionO), "extraction" => "F1", "statseules" => "CNT")
-            genomesafaire=replace(replace(join(selectionQ,','),"representatifs" => "#R", "souchestype" => "#T", "ensembl" => "#E", "complet" => "#C"), "#R,#T" => "#R#T") 
+            genomesafaire=replace(replace(join(selectionQ,','),"representatifs" => "#R", "souchestype" => "#T", "ensembl" => "#E", "complet" => "#G"), "#R,#T" => "#R#T") 
             if optionsx == "F1CNT" || optionsx == "CNTF1"
                 termine ="Extraction AND Statistics, doing only Extraction"
                 optionsx = "CNT"

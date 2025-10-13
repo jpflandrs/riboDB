@@ -93,6 +93,18 @@ Here within the COMMENTARY line:
 8) ``11`` :genetic code
 9) ``Bacteria-Pseudomonadota-Gammaproteobacteria-Enterobacterales-Enterobacteriaceae-Escherichia``: Lineage_report (simplified) = Domain-Phylum-Class-Order-Family-Genus
 
+###### The quality tags
+
+- Reference or Representative (R) are selected by the NCBI on the basis of the genome assembly quality and representativity
+- Complete genome (G) are expected to be of good quality as the assembly has been successful
+- Chromosome (C) is of low signification (may be complete, but may be not...)
+- The confidence for Contig (U) and Scaffold is lower (S). Sequences quoted "U" are of the lowest quality. 
+
+Some additional categories are
+
+- In Ensembl! (E)
+- in GTDB (D)
+
 #### Statistics
 
 In fact the results are similar, except that extraction not being done, upload will give nothing.
