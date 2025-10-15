@@ -292,7 +292,7 @@ Ctrl A + Ctrl D (detach screen)
 cd riboDB
 screen -S ribodb
 docker build -t ribodb .
-sudo docker run --name ribodb --network jpfnetwork -it -p 8008:8008 --mount type=bind,src=/home/flandrs/PKXPLORE/public,target=/home/genie/app/public --mount type=bind,src=/home/flandrs/PKXPLORE/riboDB/log,target=/home/genie/app/log ribodb
+sudo docker run --name ribodb --network jpfnetwork -it -p 8008:8008 --mount type=bind,src=/home/flandrs/PKXPLORE/public,target=/home/genie/app/public --mount type=bind,src=/home/flandrs/PKXPLORE/riboDB/log,target=/home/genie/app/log --mount type=bind,src=/home/flandrs/PKXPLORE/STATSRIBODB,target=/home/genie/app/STATSRIBODB  ribodb 
 
  ██████╗ ███████╗███╗   ██╗██╗███████╗    ███████╗
 ██╔════╝ ██╔════╝████╗  ██║██║██╔════╝    ██╔════╝

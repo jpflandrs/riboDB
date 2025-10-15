@@ -198,20 +198,20 @@ using DataFrames
 
             elseif optionsx =="CNT" # statistiques
                 termine = "riboDB content statistics for $S "
-                vecteurmotpartiel=[string(xsub) for xsub in split(Spresentable," ")]
-                vecteurgenomesafaire=[string(xsub) for xsub in split(genomesafaire," ")]
+                vecteurmotpartiel=[string(xsub) for xsub in split(Spresentable," ")] #MOT ESPECE ETC.
+                vecteurgenomesafaire=[string(xsub) for xsub in split(genomesafaire," ")] #QUALITY
                 diderot=deserialize(joinpath("STATSRIBODB","ENCYCLOPRIBODB.ser"))
                 titres=["Genome","ul1", "ul10", "ul11", "ul13", "ul14", "ul15", "ul16", "ul18", "ul2", "ul22", "ul23", 
-                    "ul24", "ul29", "ul3", "ul30", "ul4", "ul5", "ul6", "us10", "us11", "us12", "us13", "us14", 
-                    "us15", "us17", "us19", "us2", "us3", "us4", "us5", "us7", "us8", "us9",
-                    "bl12", "bl17", "bl19", "bl20", "bl21", "bl25", "bl27", "bl28", "bl31", "bl32", 
-                    "bl33", "bl34", "bl35", "bl36", "bl9", "bs16", "bs18", "bs20", "bs21", "bs6", "cs23","bTHX",
-                    "al45", "al46", "al47", "el13", "el14", "el15", "el18", "el19", "el20", "el21", "el24", "el30",
-                    "el31", "el32", "el33", "el34", "el37", "el38", "el39", "el40", "el42", "el43", "el8", 
-                    "es1", "es17", "es19", "es24", "es25", "es26", "es27", "es28", "es30", "es31", "es4", "es6", "es8", "p1p2",
-                    "16SrDNA", "23SrDNA", "5SrDNA"]
+                   "ul24", "ul29", "ul3", "ul30", "ul4", "ul5", "ul6", "us10", "us11", "us12", "us13", "us14", 
+                   "us15", "us17", "us19", "us2", "us3", "us4", "us5", "us7", "us8", "us9",
+                   "bl12", "bl17", "bl19", "bl20", "bl21", "bl25", "bl27", "bl28", "bl31", "bl32", 
+                   "bl33", "bl34", "bl35", "bl36", "bl9", "bs16", "bs18", "bs20", "bs21", "bs6", "cs23","bTHX",
+                   "al45", "al46", "al47", "el13", "el14", "el15", "el18", "el19", "el20", "el21", "el24", "el30",
+                   "el31", "el32", "el33", "el34", "el37", "el38", "el39", "el40", "el42", "el43", "el8", 
+                   "es1", "es17", "es19", "es24", "es25", "es26", "es27", "es28", "es30", "es31", "es4", "es6", "es8", "p1p2",
+                  "16SrDNA", "23SrDNA", "5SrDNA"]
                     #el41 enlevé !
-                ddff = DataTable(DataFrame(Genomes=String["no data"],Universal=String["no data"],Bacterial=String["no data"],Archaeal=String["no data"], rDNA=String["no data"]))
+                ddff = DataTable(DataFrame(Genomes=String["no data"],Qualité=String["no data"],Universal=String["no data"],Bacterial=String["no data"],Archaeal=String["no data"], rDNA=String["no data"]))
                 ddff_pagination = DataTablePagination(rows_per_page = 5)
 
                 encours = true
@@ -226,6 +226,7 @@ using DataFrames
                 titrespersonnalisés=[]
                 #la table
                 genomesid::Vector{String}=[]
+                qualité::Vector{String}=[]
                 universal::Vector{String}=[]
                 bacterial::Vector{String}=[]
                 archaeal::Vector{String}=[]
@@ -235,7 +236,8 @@ using DataFrames
                     if fonctionderecherche(vecteurmotpartiel,vecteurgenomesafaire,j)
                         #selection des colonnes 
                         lestranches=[j]
-                        push!(genomesid,j)
+                        occursin("#", j) ? push!(genomesid,split(j,"#")[1]) : push!(genomesid,j)
+                        occursin("#", j) ? push!(qualité,join(split(j,"#")[2:end],"")) : push!(qualité,"")
                         tablepersonnalisée=[j]
                         comptefamillesuniv=0
                         comptefamillesbact=0
@@ -257,7 +259,7 @@ using DataFrames
                             push!(bacterial,"-")
                             push!(tablepersonnalisée,"-")
                         end
-                        if "archprot" in selectionP
+                        if "archprot" in selectionP #on en a supprimé un ! mais il est dans 56-end-3 
                             push!(lestranches,join([string(s) for s in diderot[j][56:end-3]]," ; "))
                             push!(tablepersonnalisée,string(comptefamillesarch+=sum(diderot[j][56:end-3])))
                             push!(archaeal,string(comptefamillesarch))
@@ -279,13 +281,13 @@ using DataFrames
                     end
 
                 end
-                ddff = DataTable(DataFrame(Genomes=genomesid,Universal=universal,Bacterial=bacterial,Archaeal=archaeal,rDNA=riboDNA))
+                ddff = DataTable(DataFrame(Genomes=genomesid, Qualité=qualité, Universal=universal,Bacterial=bacterial,Archaeal=archaeal,rDNA=riboDNA))
                 push!(titrespersonnalisés,titres[1])
-                if "universaux" in selectionP
+                if "universaux" in selectionP #1_33 34-55 56:end = 33 + 22 (55) 
                     push!(titrespersonnalisés,join(titres[2:34]," ; "))
                 end
                 if "bactprot" in selectionP
-                    push!(titrespersonnalisés,join(titres[35:56]," ; "))
+                    push!(titrespersonnalisés,join(titres[35:56]," ; ")) 
                 end
                 if "archprot" in selectionP
                     push!(titrespersonnalisés,join(titres[57:end-3]," ; "))
