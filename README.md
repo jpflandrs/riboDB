@@ -107,10 +107,11 @@ In fact the method is similar, but extraction is not done, instead you get a tab
 
 By downloading you will obtain the complete composition (one column for each ribosomal-protein) as a (potentially huge) csv file.
 
+Note that the counts are those found in the database and are influenced by the genome assembly quality.
 
-## What is behind ?
+# What is behind ?
 
-### the riboDB database
+## the riboDB database
 
 RiboDB is built two time a year. It contains the ribosomal proteins of Archaea and Bacteria.
 
@@ -120,10 +121,10 @@ From the [initial approach](https://academic.oup.com/mbe/article/33/8/2170/25793
 
 RiboDB currently contains also the rDNA if available in the genomes. In the common case of multiples operons only one rDNA is retained on the basis of its centrality.
 
-### The TCP server
+## The TCP server
 From riboDB the data are re-organized in Julia dictionaries that are used by a TCP server written in Julia to answer to the queries. The process is described in its GitHub at **[TCPriboDB](https://github.com/jpflandrs/TCPriboDB)**
 
-### This website
+## This website
 
 It is, like _TCPriboDB_ written in Julia using the **[GenieFramework](https://genieframework.com)**.
 
