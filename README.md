@@ -6,7 +6,12 @@ The previous version was written in Python3 and uses CGI. But the CGI module is 
 
 Using the new website is less difficult and more safe, most choices are obvious. 
 
-The riboDB DB (nov 2024) contains data from 254,984 genomes (2262 _Archaea_, 252,722 _Bacteria_) and 15,282,163 sequences corresponding to 23,858 species of _Bacteria_ and 938 of _Archaea_. 
+The riboDB DB (July 2025) contains data from 261183 genomes (15725 _Archaea_, 245458 _Bacteria_) and 13356907 ribo-proteins sequences.
+
+# Affichage et enregistrement des totaux globaux
+echo "--- Totaux globaux ---" | tee -a "$output_file"
+echo "Total séquences dans *_prot_multiples.fasta : $total_multiples" | tee -a "$output_file"
+echo "Total séquences dans *_prot_uniques.fasta : $total_uniques" | tee -a "$output_file"
 
 ### Extraction or statistic
 
