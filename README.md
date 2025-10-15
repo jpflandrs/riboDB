@@ -1,17 +1,8 @@
 # riboDB
 
-## Using the web-site
-This site is a new version of the previous site "*RiboDB : a prokaryotic ribosomal components DataBase*" hosted at the same URL.
-The previous version was written in Python3 and uses CGI. But the CGI module is "*deprecated since version 3.11, removed in version 3.13*" so the need to refresh the site.
-
-Using the new website is less difficult and more safe, most choices are obvious. 
+## Content
 
 The riboDB DB (July 2025) contains data from 261183 genomes (15725 _Archaea_, 245458 _Bacteria_) and 13356907 ribo-proteins sequences.
-
-# Affichage et enregistrement des totaux globaux
-echo "--- Totaux globaux ---" | tee -a "$output_file"
-echo "Total séquences dans *_prot_multiples.fasta : $total_multiples" | tee -a "$output_file"
-echo "Total séquences dans *_prot_uniques.fasta : $total_uniques" | tee -a "$output_file"
 
 ### Extraction or statistic
 
