@@ -4,15 +4,19 @@ The best is to read first the [riboDB wiki](https://github.com/jpflandrs/riboDB/
 
 # Construction and installation of the website
 
+This website is written in pure [Julia](https://julialang.org) and relies on [GenieFrameworks](https://genieframework.com).
+
 ## the riboDB database
 
 RiboDB is built two time a year. It contains the ribosomal proteins of Archaea and Bacteria.
 
 For Bacteria the source of the genomes is NCBI RefSeq, except for genomes bearing a "species" level not found in RefSeq. For Archaea we select all the genomes available in NCBI RefSeq and GenBank.
 
-From the [initial approach](https://academic.oup.com/mbe/article/33/8/2170/2579323), there has been evolutions to manage the heavy increase of available genomes. Building the DB is done by using our own HMM set. The candidate proteins are then submitted to a quality-control by using a MMSEQS clustering that include reference sequences manually selected. Sequences from a cluster where references are also found are validated. The sequences occuring twice or more in a genome are separated in the "multiples" category.
+From the [initial approach](https://academic.oup.com/mbe/article/33/8/2170/2579323), there has been evolutions to manage the heavy increase of available genomes. The new version of the riboDB construction program is written in pure [Julia](https://julialang.org) and this led to a 20x speeds-up of the construction process and reduction of the storage needs by 3. Building the DB is done by using our own HMM set. The candidate proteins are then submitted to a quality-control by using a MMSEQS clustering that include reference sequences manually selected. Sequences from a cluster where references are also found are validated. The sequences occuring twice or more in a genome are separated in the "multiples" category.
 
 RiboDB currently contains also the rDNA if available in the genomes. In the common case of multiples operons only one rDNA is retained on the basis of its centrality.
+
+
 
 ## The TCP server
 From riboDB the data are re-organized in Julia dictionaries that are used by a TCP server written in Julia to answer to the queries. The process is described in its GitHub at **[TCPriboDB](https://github.com/jpflandrs/TCPriboDB)**
