@@ -2,7 +2,7 @@
 
 ## Content
 
-The riboDB DB (July 2025) contains data from 261183 genomes (15725 _Archaea_, 245458 _Bacteria_) and 13356907 ribo-proteins sequences.
+The riboDB DB (July 2025) contains data from 261183 genomes (15725 _Archaea_, 245458 _Bacteria_) and 13356907 ribosomal-proteins sequences.
 
 ### Extraction or statistic
 
@@ -103,8 +103,10 @@ Some additional categories are
 
 #### Statistics
 
-In fact the results are similar, except that extraction not being done, upload will give nothing.
-This function will be improoved.
+In fact the method is similar, but extraction is not done, instead you get a table containing informations on the genomes and their quality-tags and the number of ribosomal proteins (Univesal, Bacteria-specific, Archaea-specific).
+
+By downloading you will obtain the complete composition (one column for each ribosomal-protein) as a (potentially huge) csv file.
+
 
 ## What is behind ?
 
