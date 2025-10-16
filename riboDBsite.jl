@@ -208,7 +208,7 @@ using DataFrames
                    "bl33", "bl34", "bl35", "bl36", "bl9", "bs16", "bs18", "bs20", "bs21", "bs6", "cs23","bTHX",
                    "al45", "al46", "al47", "el13", "el14", "el15", "el18", "el19", "el20", "el21", "el24", "el30",
                    "el31", "el32", "el33", "el34", "el37", "el38", "el39", "el40", "el42", "el43", "el8", 
-                   "es1", "es17", "es19", "es24", "es25", "es26", "es27", "es28", "es30", "es31", "es4", "es6", "es8", "p1p2",
+                   "es1", "es17", "es19", "es24", "es25", "es26", "es27", "es28", "es30", "es31", "es32", "es4", "es6", "es8", "p1p2",
                   "16SrDNA", "23SrDNA", "5SrDNA"]
                     #el41 enlevé !
                 ddff = DataTable(DataFrame(Genomes=String["no data"],Qualité=String["no data"],Universal=String["no data"],Bacterial=String["no data"],Archaeal=String["no data"], rDNA=String["no data"]))
@@ -453,7 +453,7 @@ function selecteurfamilles(nomsets) # bactprot archprot universaux
     #println(typeof(nomsets))
     familia=Dict("rdna" => ["16SrDNA", "23SrDNA", "5SrDNA"], "universaux"  => ["ul1", "ul10", "ul11", "ul13", "ul14", "ul15", "ul16", "ul18", "ul2", "ul22", "ul23", "ul24", "ul29", "ul3", "ul30", "ul4", "ul5", "ul6", "us10", "us11", "us12", "us13", "us14", "us15", "us17", "us19", "us2", "us3", "us4", "us5", "us7", "us8", "us9"],
 "bactprot"=>["bTHX", "bl12", "bl17", "bl19", "bl20", "bl21", "bl25", "bl27", "bl28", "bl31", "bl32", "bl33", "bl34", "bl35", "bl36", "bl9", "bs16", "bs18", "bs20", "bs21", "bs6", "cs23"],
-"archprot"=>["al45", "al46", "al47", "el13", "el14", "el15", "el18", "el19", "el20", "el21", "el24", "el30", "el31", "el32", "el33", "el34", "el37", "el38", "el39", "el40", "el42", "el43", "el8", "es1", "es17", "es19", "es24", "es25", "es26", "es27", "es28", "es30", "es31", "es4", "es6", "es8", "p1p2"])
+"archprot"=>["al45", "al46", "al47", "el13", "el14", "el15", "el18", "el19", "el20", "el21", "el24", "el30", "el31", "el32", "el33", "el34", "el37", "el38", "el39", "el40", "el42", "el43", "el8", "es1", "es17", "es19", "es24", "es25", "es26", "es27", "es28", "es30", "es31", "es32",  "es4", "es6", "es8", "p1p2"])
 # el41 enlevé
     fam=[]
     for i in nomsets  
